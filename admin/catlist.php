@@ -1,4 +1,10 @@
-﻿<?php include 'inc/header.php';?>
+﻿<?php
+include_once '../classes/Category.php';  
+$cat = new Category(); 
+?>
+
+
+<?php include 'inc/header.php';?>
 <?php include 'inc/sidebar.php';?>
         <div class="grid_10">
             <div class="box round first grid">
@@ -13,46 +19,22 @@
 						</tr>
 					</thead>
 					<tbody>
+						<?php  
+							$getCat = $cat->getAllCat();
+							if($getCat){
+								$i=0;
+								while($result = $getCat->fetch_assoc()){ 
+									$i++; ?>
 						<tr class="odd gradeX">
-							<td>01</td>
-							<td>Internet</td>
-							<td><a href="">Edit</a> || <a href="">Delete</a></td>
-						</tr>
-						<tr class="even gradeC">
-							<td>02</td>
-							<td>Explorer </td>
-							<td><a href="">Edit</a> || <a href="">Delete</a></td>
-						</tr>
-						<tr class="odd gradeX">
-							<td>03</td>
-							<td>Internet</td>
-							<td><a href="">Edit</a> || <a href="">Delete</a></td>
-						</tr>
-						<tr class="even gradeC">
-							<td>04</td>
-							<td>Explorer </td>
-							<td><a href="">Edit</a> || <a href="">Delete</a></td>
-						</tr>
-							<tr class="odd gradeX">
-							<td>05</td>
-							<td>Internet</td>
-							<td><a href="">Edit</a> || <a href="">Delete</a></td>
-						</tr>
-						<tr class="even gradeC">
-							<td>06</td>
-							<td>Explorer </td>
-							<td><a href="">Edit</a> || <a href="">Delete</a></td>
-						</tr>
-						<tr class="odd gradeX">
-							<td>07</td>
-							<td>Internet</td>
-							<td><a href="">Edit</a> || <a href="">Delete</a></td>
-						</tr>
-						<tr class="even gradeC">
-							<td>08</td>
-							<td>Explorer </td>
-							<td><a href="">Edit</a> || <a href="">Delete</a></td>
-						</tr>
+							<td><?php echo $i;?></td>
+							<td><?php echo $result['catName'];?></td>
+							<td>
+								<a href="catedit.php?catid=<?php echo $result['catId'];?>">Edit</a> || 
+								<a href="catit.php?catid=<?php echo $result['catId'];?>" onclick="return confirm('Are you sure to delete?')" >Delete</a>
+							</td>
+						</tr> 	
+						<?php } }   ?>
+						 
 					</tbody>
 				</table>
                </div>

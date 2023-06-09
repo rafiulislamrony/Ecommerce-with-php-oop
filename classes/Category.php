@@ -32,10 +32,15 @@ class Category{
             }else{
                 $message = "<span class='error'>Category Not Inserted. </span>"; 
                 return $message;
-            } 
-
+            }  
         }
     } 
+
+    public function getAllCat(){
+        $query  = "SELECT * FROM tbl_category ORDER BY catId DESC";
+        $result = $this->db->select($query); 
+        return $result;
+    }
 
 
 }

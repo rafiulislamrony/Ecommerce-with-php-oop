@@ -6,8 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	$catName = $_POST['catName']; 
 
 	$insertCat = $cat->catInsert($catName);
-}
-
+} 
 ?>
 
 <?php include 'inc/header.php';?>

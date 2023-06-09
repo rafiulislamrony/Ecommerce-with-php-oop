@@ -42,29 +42,29 @@ class Brand{
         $result = $this->db->select($query); 
         return $result;
     }
-    public function getCatById($id){
-        $query  = "SELECT * FROM tbl_category WHERE catId='$id'";
+    public function getBrandById($id){
+        $query  = "SELECT * FROM tbl_brands WHERE brandId='$id'";
         $result = $this->db->select($query); 
         return $result;
     }
-    public function catUpdate($catName, $id){
-        $catName = $this->fm->validation($catName);  
+    public function BrandUpdate($brandName, $id){
+        $brandName = $this->fm->validation($brandName);   
         $id = $this->fm->validation($id);  
-        $catName = $this->db->link->real_escape_string($catName); 
+        $brandName = $this->db->link->real_escape_string($brandName); 
         $id = $this->db->link->real_escape_string($id); 
 
-        if(empty($catName)){
-            $message = "<span class='error'>Category field must not be empty !  </span>";
+        if(empty($brandName)){
+            $message = "<span class='error'>Brand field must not be empty !  </span>";
             return $message;
-        }else{
-            $query = "UPDATE tbl_category SET catName = '$catName' WHERE catId ='$id'"; 
+        }else{ 
+            $query = "UPDATE tbl_brands SET brandName = '$brandName' WHERE brandId ='$id'"; 
             $result = $this->db->update($query);
              
             if($result){
-               $message = "<span class='success'>Category Updated Successfully. </span>"; 
+               $message = "<span class='success'>Brand Updated Successfully. </span>"; 
                return $message;
             }else{
-                $message = "<span class='error'>Category Not Updated.</span>"; 
+                $message = "<span class='error'>Brand Not Updated.</span>";  
                 return $message;
             }
         } 

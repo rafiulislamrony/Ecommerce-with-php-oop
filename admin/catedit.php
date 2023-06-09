@@ -9,9 +9,8 @@ if (!isset($_GET['catid']) || $_GET['catid'] == NULL) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $catName = $_POST['catName'];
-
-    $insertCat = $cat->catInsert($catName);
+    $catName = $_POST['catName']; 
+    $updateCat = $cat->catUpdate($catName, $id);
 }
 ?>
 
@@ -23,14 +22,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <h2>Edit Category</h2>
         <div class="block copyblock">
             <?php
-            if (isset($insertCat)) {
-                echo $insertCat;
+            if (isset($updateCat)) {
+                echo $updateCat;
             }
 
             $getCat = $cat->getCatById($id);
             if ($getCat) {
                 while ($result = $getCat->fetch_assoc()) { ?>
-                    <form action="catedit.php" method="POST">
+                    <form action="" method="POST">
                         <table class="form">
                             <tr>
                                 <td>

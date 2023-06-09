@@ -46,6 +46,27 @@ class Category{
         $result = $this->db->select($query); 
         return $result;
     }
+    public function catUpdate($catName, $id){
+        $catName = $this->fm->validation($catName);  
+        $catName = $this->db->link->real_escape_string($catName); 
+        $id = $this->db->link->real_escape_string($id); 
+
+        if(empty($catName)){
+            $message = "<span class='error'>Category field must not be empty !  </span>";
+            return $message;
+        }else{
+            $query = "UPDATE tbl_category SET catName = '$catName' WHERE catId ='$id'"; 
+            $result = $this->db->update($query);
+             
+            if($result) {
+               $message = "<span class='success'>Category Updated Successfully. </span>"; 
+               return $message;
+            }else{
+                $message = "<span class='error'>Category Not Updated. </span>"; 
+                return $message;
+            }
+        } 
+    }
 
 
 }

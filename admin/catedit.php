@@ -5,7 +5,7 @@ $cat = new Category();
 if (!isset($_GET['catid']) || $_GET['catid'] == NULL) {
     echo "<script>window.location = 'catlist.php';</script>";
 } else {
-    $id = $_GET['catid'];
+    $id = preg_replace('/[^-a-zA-Z0-9]/', '', $_GET['catid']);
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {

@@ -70,15 +70,15 @@ class Brand{
         } 
     }
     
-    public function delCatById($id){
-        $query  = "DELETE FROM tbl_category WHERE catId='$id'"; 
+    public function delBrandById($id){
+        $query  = "DELETE FROM tbl_brands WHERE brandId='$id'"; 
         $result = $this->db->delete($query);
            
         if($result){
-            $message = "<span class='success'>Category Deleted Successfully. </span>"; 
+            $message ="<span class='success'>Brand Deleted Successfully. </span>"; 
             return $message;
          }else{ 
-             $message = "<span class='error'>Category Not Delete.</span>"; 
+             $message ="<span class='error'>Brand Not Delete.</span>";  
              return $message;
          }
     }

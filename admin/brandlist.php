@@ -4,10 +4,10 @@
 include_once '../classes/Brand.php';
 $brand = new Brand();
 
-// if (isset($_GET['delcat'])) {
-//     $id = $_GET['delcat'];
-//     $delCat = $cat->delCatById($id);
-// }
+if (isset($_GET['delbrand'])) {
+    $id = $_GET['delbrand'];
+    $delBrand = $brand->delBrandById($id); 
+}
 
 ?>
 
@@ -16,8 +16,8 @@ $brand = new Brand();
         <h2>Brand List</h2>
         <div class="block">
             <?php
-            if (isset($delCat)) {
-                echo $delCat;
+            if (isset($delBrand)) {
+                echo $delBrand; 
             }
             ?>
             <table class="data display datatable" id="example">

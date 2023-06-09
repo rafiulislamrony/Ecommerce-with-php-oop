@@ -45,10 +45,7 @@ class Adminlogin{
             } 
 
         }
-    }
-
-    
-
+    } 
 
 }
 

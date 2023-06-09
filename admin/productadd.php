@@ -1,15 +1,28 @@
 ﻿<?php include 'inc/header.php'; ?>
 <?php include 'inc/sidebar.php'; ?>
+<?php include_once '../classes/Product.php'; ?>
 <?php include_once '../classes/Brand.php'; ?>
 <?php include_once '../classes/Category.php'; ?>
+
+<?php 
+
+$pd = new Product();
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') { 
+	$insertProduct = $pd->productInsert($_POST, $_FILES);
+} 
+?>
  
 <div class="grid_10">
     <div class="box round first grid">
         <h2>Add New Product</h2>
         <div class="block">
+            <?php  if(isset($insertProduct)){
+                echo $insertProduct;
+            }
+            ?>
             <form action="" method="post" enctype="multipart/form-data">
                 <table class="form">
-
                     <tr>
                         <td>
                             <label>Name</label>
@@ -22,8 +35,7 @@
                         <td>
                             <label>Category</label>
                         </td>
-                        <td> 
-
+                        <td>  
                             <select id="select" name="catId">
                                 <option>Select Category</option>
                                 <?php
@@ -49,7 +61,7 @@
                                 $getBrand = $brand->getAllBrand();
                                 if ($getBrand) {
                                     while ($redult = $getBrand->fetch_assoc()) { ?>
-                                        <option value="<?php echo $redult['brandId'] ?>"> <?php echo $redult['brandName'] ?></option>
+                                        <option value="<?php echo $redult['brandId'];?>"><?php echo $redult['brandName']; ?></option>
                                     <?php }
                                 } ?>
                             </select>
@@ -61,9 +73,7 @@
                             <label>Description</label>
                         </td>
                         <td>
-                            <textarea class="tinymce" name="body">
-
-                        </textarea>
+                            <textarea class="tinymce" name="body"> </textarea>
                         </td>
                     </tr>
                     <tr>

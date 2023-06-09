@@ -37,8 +37,8 @@ class Brand{
         }
     } 
 
-    public function getAllCat(){
-        $query  = "SELECT * FROM tbl_category ORDER BY catId DESC";
+    public function getAllBrand(){
+        $query  = "SELECT * FROM tbl_brands ORDER BY brandId DESC";
         $result = $this->db->select($query); 
         return $result;
     }

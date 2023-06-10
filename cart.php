@@ -1,10 +1,23 @@
 <?php include 'inc/header.php' ?>
 
+<?php
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+	$cartId = $_POST['cartId'];
+	$quantity = $_POST['quantity'];
+	$updateCart = $ct->updateCartQuantity($cartId, $quantity); 
+}
+?>
+
 <div class="main">
 	<div class="content">
 		<div class="cartoption">
 			<div class="cartpage">
 				<h2>Your Cart</h2>
+				<?php
+				if ($updateCart) {
+					echo $updateCart;
+				}
+				?>
 				<table class="tblone">
 					<tr>
 						<th>SL No.</th>
@@ -31,14 +44,19 @@
 									<?php echo $result['productName']; ?>
 								</td>
 								<td><img src="admin/<?php echo $result['image']; ?>" alt="" /></td>
-								<td>$<?php echo $result['price']; ?>
-								X<?php echo $result['quantity']; ?>
+								<td>$
+									<?php echo $result['price']; ?>
+									X
+									<?php echo $result['quantity']; ?>
 								</td>
 								<td>
-									<form action="" method="post">
-										<input type="number" name="" min="1" value="<?php echo $result['quantity']; ?>" />
+ 
+									<form action="" method="POST">
+										<input type="hidden" name="cartId" value="<?php echo $result['cartId']; ?>" />
+										<input type="number" name="quantity" value="<?php echo $result['quantity']; ?>" />
 										<input type="submit" name="submit" value="Update" />
 									</form>
+
 								</td>
 								<td>
 									<?php
@@ -60,7 +78,8 @@
 				<table style="float:right;text-align:left;" width="40%">
 					<tr>
 						<th>Sub Total : </th>
-						<td>$<?php echo $sum; ?>
+						<td>$
+							<?php echo $sum; ?>
 						</td>
 					</tr>
 					<tr>
@@ -70,7 +89,8 @@
 					<tr>
 						<th>Grand Total :</th>
 						<td>
-							$<?php
+							$
+							<?php
 							$vat = $sum * 0.1;
 							$gtotal = $sum + $vat;
 							echo $gtotal;

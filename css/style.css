@@ -2475,3 +2475,13 @@ p.terms {
 		padding:4%;
 	}
 }
+.success
+{ 
+	font-size: 18px;
+	color: green;
+}
+.error
+{ 
+	font-size: 18px;
+	color: red;
+} 

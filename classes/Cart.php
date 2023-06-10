@@ -32,13 +32,20 @@ class Cart{
         VALUES('$sId','$productId','$productName','$price', '$quantity','$image')";
 
         $inserted_row = $this->db->insert($query);
-        
+
         if ($result) {
             header("Location:cart.php"); 
         } else {
             header("Location:404.php"); 
         }
 
+    }
+
+    public function getCartProduct(){
+        $sId = session_id();
+        $query = "SELECT * FROM tbl_cart WHERE sId='$sId'"; 
+        $result = $this->db->select($query);
+        return $result;
     }
 
 }

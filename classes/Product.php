@@ -45,11 +45,11 @@ class Product
 
         if ($productName == "" || $catId == "" || $brandId == "" || $body == "" || $price == "" || $file_name == "" || $type == "") {
             echo "<span class='error'>Field must not be empty.</span>";
-        }elseif ($file_size > 1048567) {
+        } elseif ($file_size > 1048567) {
             echo "<span class='error'>Image Size should be less then 1MB! </span>";
-        }elseif (in_array($file_ext, $permited) === false) {
+        } elseif (in_array($file_ext, $permited) === false) {
             echo "<span class='error'>You can upload only:-" . implode(', ', $permited) . "</span>";
-        }else {
+        } else {
             move_uploaded_file($file_temp, $uploaded_image);
             $query = "INSERT INTO tbl_product(catId, brandId, productName, body, price, image, type) 
             VALUES('$catId','$brandId','$productName','$body', '$price','$uploaded_image', '$type')";
@@ -64,7 +64,8 @@ class Product
         }
     }
 
-    public function getAllProduct(){
+    public function getAllProduct()
+    {
 
         /* Alises query  */
         $query = "SELECT p.*, c.catName, b.brandName
@@ -83,32 +84,106 @@ class Product
         $result = $this->db->select($query);
         return $result;
     }
-     
-    public function getProductById($id) {
+
+    public function getProductById($id)
+    {
         $query = "SELECT * FROM tbl_product WHERE productId='$id'";
         $result = $this->db->select($query);
         return $result;
     }
 
-    public function BrandUpdate($brandName, $id){
-        $brandName = $this->fm->validation($brandName);
-        $id = $this->fm->validation($id);
-        $brandName = $this->db->link->real_escape_string($brandName);
-        $id = $this->db->link->real_escape_string($id);
+    public function productUpdate($data, $file, $id)
+    {
 
-        if (empty($brandName)) {
-            $message = "<span class='error'>Brand field must not be empty !  </span>";
+        $productName = $this->fm->validation($data['productName']);
+        $catId = $this->fm->validation($data['catId']);
+        $brandId = $this->fm->validation($data['brandId']);
+        $body = $data['body'];
+        $price = $this->fm->validation($data['price']);
+        $type = $this->fm->validation($data['type']);
+
+        $productName = $this->db->link->real_escape_string($productName);
+        $catId = $this->db->link->real_escape_string($catId);
+        $brandId = $this->db->link->real_escape_string($brandId);
+        $body = $this->db->link->real_escape_string($body);
+        $price = $this->db->link->real_escape_string($price);
+        $type = $this->db->link->real_escape_string($type);
+
+        $permited = array('jpg', 'jpeg', 'png', 'gif');
+        $file_name = $file['image']['name'];
+        $file_size = $file['image']['size'];
+        $file_temp = $file['image']['tmp_name'];
+
+        $div = explode('.', $file_name);
+        $file_ext = strtolower(end($div));
+        $unique_image = substr(md5(time()), 0, 10) . '.' . $file_ext;
+        $uploaded_image = "upload/" . $unique_image;
+
+        if ($productName == "" || $catId == "" || $brandId == "" || $body == "" || $price == "" || $type == "") {
+            $message = "<span class='error'>Field must not be empty.</span>";
             return $message;
         } else {
-            $query = "UPDATE tbl_brands SET brandName = '$brandName' WHERE brandId ='$id'";
-            $result = $this->db->update($query);
+            if (!empty($file_name)) {
+                if ($file_size > 1048567) {
+                    echo "<span class='error'>Image Size should be less then 1MB! </span>";
+                } elseif (in_array($file_ext, $permited) === false) {
+                    echo "<span class='error'>You can upload only:-" . implode(', ', $permited) . "</span>";
+                } else {
 
-            if ($result) {
-                $message = "<span class='success'>Brand Updated Successfully. </span>";
-                return $message;
+                    // Delete previous image 
+                    $deloldimg = "SELECT * FROM tbl_product WHERE productId='$id' ORDER BY productId DESC";
+                    $getproductall = $this->db->select($deloldimg);
+                    if ($getproductall) {
+                        while ($productimge = $getproductall->fetch_assoc()) {
+                            $old_image = $productimge['image'];
+                            if (file_exists($old_image)) {
+                                unlink($old_image);
+                            }
+                        }
+                    }
+
+                    move_uploaded_file($file_temp, $uploaded_image);
+                    $query = "UPDATE tbl_product 
+                    SET 
+                    productName ='$productName',
+                    catId       ='$catId',
+                    brandId     ='$brandId',
+                    body        ='$body',
+                    price       ='$price',
+                    image       ='$uploaded_image',
+                    type        ='$type'
+                    WHERE productId = '$id' ";
+
+                    $result = $this->db->update($query);
+
+                    if ($result) {
+                        $message = "<span class='success'>Product Updated Successfully. </span>";
+                        return $message;
+                    } else {
+                        $message = "<span class='error'>Product Not Updated. </span>";
+                        return $message;
+                    }
+                }
             } else {
-                $message = "<span class='error'>Brand Not Updated.</span>";
-                return $message;
+                $query = "UPDATE tbl_product 
+                SET 
+                productName ='$productName',
+                catId       ='$catId',
+                brandId     ='$brandId',
+                body        ='$body',
+                price       ='$price', 
+                type        ='$type'
+                WHERE productId = '$id' ";
+
+                $result = $this->db->update($query);
+
+                if ($result) {
+                    $message = "<span class='success'>Product Updated Successfully. </span>";
+                    return $message;
+                } else {
+                    $message = "<span class='error'>Product Not Updated. </span>";
+                    return $message;
+                }
             }
         }
     }

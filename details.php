@@ -40,9 +40,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 							<br>
 							<span style="color:red; font-size: 18px;">  
 								<?php 
-								if(isset($addCart)){
-									echo $addCart; 
-								}
+									if(isset($addCart)){
+										echo $addCart; 
+									}
 								?>
 							</span>
 						</div>

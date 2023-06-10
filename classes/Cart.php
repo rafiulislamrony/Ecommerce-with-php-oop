@@ -17,8 +17,7 @@ class Cart
         $this->fm = new Format();
     }
 
-    public function addToCart($quantity, $id)
-    {
+    public function addToCart($quantity, $id){
         $quantity = $this->fm->validation($quantity);
         $quantity = $this->db->link->real_escape_string($quantity);
         $productId = $this->db->link->real_escape_string($id);
@@ -31,7 +30,7 @@ class Cart
         $image = $result['image'];
 
         $checkquery = "SELECT * FROM tbl_cart WHERE productId='$productId' AND sId='$sId' ";
-        $getPro = $this->db->insert($checkquery);
+        $getPro = $this->db->select($checkquery);
 
         if($getPro) {
             $message = "Product Already Added.";
@@ -58,7 +57,6 @@ class Cart
         return $result;
     }
     public function updateCartQuantity($cartId, $quantity){ 
-        
         $cartId = $this->fm->validation($cartId);  
         $quantity = $this->fm->validation($quantity);  
         $cartId = $this->db->link->real_escape_string($cartId); 
@@ -75,6 +73,21 @@ class Cart
             $message = "<span class='error'>Quantity Not Updated.</span>"; 
             return $message;
         } 
+    }
+
+    public function delProductByCart($delId){
+        $delId = $this->fm->validation($delId);  
+        $delId = $this->db->link->real_escape_string($delId); 
+ 
+        $query  = "DELETE FROM tbl_cart WHERE cartId ='$delId'";  
+        $result = $this->db->delete($query);
+           
+        if($result){ 
+            echo "<script>window.location='cart.php';</script>";
+         }else{ 
+             $message = "<span class='error'>Product Not Delete.</span>"; 
+             return $message;
+         }
     }
 
 }

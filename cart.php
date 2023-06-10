@@ -1,10 +1,19 @@
 <?php include 'inc/header.php' ?>
 
 <?php
+if (isset($_GET['delpro'])) { 
+	$delId = preg_replace('/[^-a-zA-Z0-9]/', '', $_GET['delpro']);
+	$delProduct = $ct->delProductByCart($delId);
+}
+?>
+<?php
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	$cartId = $_POST['cartId'];
 	$quantity = $_POST['quantity'];
 	$updateCart = $ct->updateCartQuantity($cartId, $quantity); 
+	if($quantity  <= 0){
+		$delProduct = $ct->delProductByCart($cartId); 
+	}
 }
 ?>
 
@@ -14,8 +23,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			<div class="cartpage">
 				<h2>Your Cart</h2>
 				<?php
-				if ($updateCart) {
+				if (isset($updateCart)) {
 					echo $updateCart;
+				}
+				if (isset($delProduct)) {
+					echo $delProduct; 
 				}
 				?>
 				<table class="tblone">
@@ -52,9 +64,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 								<td>
  
 									<form action="" method="POST">
-										<input type="hidden" name="cartId" value="<?php echo $result['cartId']; ?>" />
-										<input type="number" name="quantity" value="<?php echo $result['quantity']; ?>" />
-										<input type="submit" name="submit" value="Update" />
+										<input type="hidden" name="cartId" value="<?php echo $result['cartId']; ?>"/>
+										<input type="number" name="quantity" value="<?php echo $result['quantity']; ?>"/>
+										<input type="submit" name="submit" value="Update"/>
 									</form>
 
 								</td>
@@ -64,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 									echo $total;
 									?>
 								</td>
-								<td><a href="">X</a></td>
+								<td><a href="?delpro=<?php echo $result['cartId']; ?>" onclick="return confirm('Are you sure to delete!')">X</a></td>
 							</tr>
 							<?php
 							$sum = $sum + $total;
@@ -79,7 +91,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 					<tr>
 						<th>Sub Total : </th>
 						<td>$
-							<?php echo $sum; ?>
+							<?php 
+							if(isset($sum)) {
+								echo $sum; 
+							}else{ 
+								echo "0.00";
+							}
+							?>
 						</td>
 					</tr>
 					<tr>
@@ -91,9 +109,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 						<td>
 							$
 							<?php
-							$vat = $sum * 0.1;
-							$gtotal = $sum + $vat;
-							echo $gtotal;
+							if(isset($sum)) {
+								$vat = $sum * 0.1;
+								$gtotal = $sum + $vat;
+								echo $gtotal;
+							}else{
+								echo "0.00";
+							}
 							?>
 						</td>
 					</tr>

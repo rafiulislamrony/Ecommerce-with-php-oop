@@ -65,7 +65,7 @@ class Product
     }
 
     public function getAllProduct(){
-        
+
         /* Alises query  */
         $query = "SELECT p.*, c.catName, b.brandName
         FROM tbl_product as p, tbl_category as c, tbl_brands as b 
@@ -83,15 +83,9 @@ class Product
         $result = $this->db->select($query);
         return $result;
     }
-    
-
-
-
-
-
-    public function getBrandById($id)
-    {
-        $query = "SELECT * FROM tbl_brands WHERE brandId='$id'";
+     
+    public function getProductById($id) {
+        $query = "SELECT * FROM tbl_product WHERE productId='$id'";
         $result = $this->db->select($query);
         return $result;
     }

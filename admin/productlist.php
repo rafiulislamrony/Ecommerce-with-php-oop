@@ -62,7 +62,11 @@ $fm = new Format();
 									}
 									?>
 								</td>
-								<td><a href="">Edit</a> || <a href="">Delete</a></td>
+								<td>
+								 <a href="productedit.php?proid=<?php echo $result['productId']; ?>">Edit</a> ||
+								 <a href="?delpro=<?php echo $result['productId']; ?>"
+										onclick="return confirm('Are you sure to delete?')">Delete</a>
+							    </td>
 							</tr>
 						<?php }
 					} ?>

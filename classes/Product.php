@@ -1,13 +1,13 @@
 <?php
-include_once '../lib/Database.php';
-include_once '../helpers/Format.php';
+$filepath = realpath(dirname(__FILE__));
+include_once ($filepath.'/../lib/Database.php');
+include_once ($filepath.'/../helpers/Format.php');  
 ?>
 
 <?php
 
 class Product
 {
-
     private $db;
     private $fm;
 
@@ -94,7 +94,6 @@ class Product
 
     public function productUpdate($data, $file, $id)
     {
-
         $productName = $this->fm->validation($data['productName']);
         $catId = $this->fm->validation($data['catId']);
         $brandId = $this->fm->validation($data['brandId']);
@@ -214,6 +213,11 @@ class Product
         }
     }
 
+    public function getFeaturedProduct(){
+        $query  = "SELECT * FROM tbl_product WHERE type='0' ORDER BY productId DESC LIMIT 4";
+        $result = $this->db->select($query); 
+        return $result;
+    }
 
 }
 

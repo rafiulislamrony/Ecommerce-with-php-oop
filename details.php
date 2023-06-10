@@ -7,10 +7,10 @@ if (!isset($_GET['proid']) || $_GET['proid'] == NULL) {
 	$id = preg_replace('/[^-a-zA-Z0-9]/', '', $_GET['proid']);
 }
 
-// if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-//     $brandName = $_POST['brandName']; 
-//     $updateBrand = $brand->BrandUpdate($brandName, $id);
-// }
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $quantity = $_POST['quantity']; 
+    $addCart = $ct->addToCart($quantity, $id);
+}
 ?>
 <div class="main">
 	<div class="content">
@@ -32,8 +32,8 @@ if (!isset($_GET['proid']) || $_GET['proid'] == NULL) {
 								<p>Brand:<span><?php echo $result['brandName'];?></span></p>
 							</div>
 							<div class="add-cart">
-								<form action="cart.html" method="post">
-									<input type="number" class="buyfield" name="" value="1" />
+								<form action="" method="post">
+									<input type="number" class="buyfield" name="quantity" value="1" />
 									<input type="submit" class="buysubmit" name="submit" value="Buy Now" />
 								</form>
 							</div>

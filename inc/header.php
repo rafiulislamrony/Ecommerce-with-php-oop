@@ -64,7 +64,20 @@ header("Cache-Control: max-age=2592000");
 					<div class="cart">
 						<a href="#" title="View my shopping cart" rel="nofollow">
 							<span class="cart_title">Cart</span>
-							<span class="no_product">(empty)</span>
+							<span class="no_product">
+							<?php   
+							$getData = $ct->checkCartTable();
+							if($getData){
+								$sum = Session::get("sum");
+								$qty = Session::get("qty");
+								echo "$".$sum." | Qty: ".$qty; 
+							}else{
+								echo "(empty)"; 
+							}
+								
+							?>
+
+							</span>
 						</a>
 					</div>
 				</div>

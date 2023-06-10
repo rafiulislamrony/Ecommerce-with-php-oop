@@ -46,6 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 					if ($getPro) {
 						$i = 0;
 						$sum = 0;
+						$qty = 0;
 						while ($result = $getPro->fetch_assoc()) {
 							$i++; ?>
 							<tr>
@@ -79,14 +80,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 								<td><a href="?delpro=<?php echo $result['cartId']; ?>" onclick="return confirm('Are you sure to delete!')">X</a></td>
 							</tr>
 							<?php
+							$qty = $qty + $result['quantity']; 
 							$sum = $sum + $total;
+							Session::set("sum", $sum);
+							Session::set("qty", $qty); 
 							?>
 						<?php }
 					}
-					?>
-
-
+					?>  
 				</table>
+				<?php 
+					$getData = $ct->checkCartTable();  
+					if($getData){ ?> 
+ 
 				<table style="float:right;text-align:left;" width="40%">
 					<tr>
 						<th>Sub Total : </th>
@@ -120,6 +126,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 						</td>
 					</tr>
 				</table>
+				<?php } else{ 
+					 echo "<span class='error'>Cart Empty ! Please Shop now.</span>"; 
+				}
+				?>  
 			</div>
 			<div class="shopping">
 				<div class="shopleft">

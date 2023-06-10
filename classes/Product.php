@@ -64,13 +64,17 @@ class Product
         }
     }
 
-    public function getAllBrand()
+
+
+    public function getAllProduct()
     {
-        $query = "SELECT * FROM tbl_brands ORDER BY brandId DESC";
+        $query = "SELECT * FROM tbl_product ORDER BY productId DESC";
         $result = $this->db->select($query);
         return $result;
     }
     
+
+
     public function getBrandById($id)
     {
         $query = "SELECT * FROM tbl_brands WHERE brandId='$id'";

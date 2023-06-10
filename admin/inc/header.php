@@ -65,7 +65,9 @@ header("Cache-Control: max-age=2592000");
                     ?>
                     <div class="floatleft marginleft10">
                         <ul class="inline-ul floatleft">
-                            <li>Hello <?php echo Session::get('adminName'); ?></li>
+                            <li>Hello
+                                <?php echo Session::get('adminName'); ?>
+                            </li>
                             <li><a href="?action=logout">Logout</a></li>
                         </ul>
                     </div>

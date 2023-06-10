@@ -64,15 +64,29 @@ class Product
         }
     }
 
+    public function getAllProduct(){
+        
+        /* Alises query  */
+        $query = "SELECT p.*, c.catName, b.brandName
+        FROM tbl_product as p, tbl_category as c, tbl_brands as b 
+        WHERE p.catId = c.catId AND p.brandId = b.brandId
+        ORDER BY p.productId DESC";
 
+        /* $query = "SELECT tbl_product.*, tbl_category.catName, tbl_brands.brandName 
+        FROM tbl_product
+        INNER JOIN tbl_category 
+        ON tbl_product.catId = tbl_category.catId
+        INNER JOIN tbl_brands 
+        ON tbl_product.brandId = tbl_brands.brandId 
+        ORDER BY productId DESC"; */
 
-    public function getAllProduct()
-    {
-        $query = "SELECT * FROM tbl_product ORDER BY productId DESC";
         $result = $this->db->select($query);
         return $result;
     }
     
+
+
+
 
 
     public function getBrandById($id)

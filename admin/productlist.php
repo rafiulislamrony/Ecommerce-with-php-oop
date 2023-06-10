@@ -41,10 +41,10 @@ $fm = new Format();
 									<?php echo $result['productName']; ?>
 								</td>
 								<td>
-									<?php echo $result['catId']; ?>
+									<?php echo $result['catName']; ?>
 								</td>
 								<td>
-									<?php echo $result['brandId']; ?>
+									<?php echo $result['brandName']; ?>
 								</td>
 								<td>
 									<?php echo $fm->textShorten($result['body'], 50); ?>

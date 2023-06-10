@@ -131,7 +131,7 @@ class Product
                 } else {
 
                     // Delete previous image 
-                    $deloldimg = "SELECT * FROM tbl_product WHERE productId='$id' ORDER BY productId DESC";
+                    $deloldimg = "SELECT * FROM tbl_product WHERE productId='$id'";
                     $getproductall = $this->db->select($deloldimg);
                     if ($getproductall) {
                         while ($productimge = $getproductall->fetch_assoc()) {
@@ -188,16 +188,28 @@ class Product
         }
     }
 
-    public function delBrandById($id)
+    public function delProById($id)
     {
-        $query = "DELETE FROM tbl_brands WHERE brandId='$id'";
+        // Delete previous image 
+        $deloldimg = "SELECT * FROM tbl_product WHERE productId='$id'";
+        $getproductall = $this->db->select($deloldimg);
+        if ($getproductall) {
+            while ($productimge = $getproductall->fetch_assoc()) {
+                $old_image = $productimge['image'];
+                if (file_exists($old_image)) {
+                    unlink($old_image);
+                }
+            }
+        }
+
+        $query = "DELETE FROM tbl_product WHERE productId='$id'";
         $result = $this->db->delete($query);
 
         if ($result) {
-            $message = "<span class='success'>Brand Deleted Successfully. </span>";
+            $message = "<span class='success'>Product Deleted Successfully. </span>";
             return $message;
         } else {
-            $message = "<span class='error'>Brand Not Delete.</span>";
+            $message = "<span class='error'>Product Not Delete.</span>"; 
             return $message;
         }
     }

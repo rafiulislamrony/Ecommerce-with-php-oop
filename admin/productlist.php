@@ -5,12 +5,23 @@
 <?php
 $pd = new Product();
 $fm = new Format();
+ 
+if(isset($_GET['delpro'])){
+	$id = $_GET['delpro'];
+	$delpro =  $pd->delProById($id);
+}
+
 ?>
 
 <div class="grid_10">
 	<div class="box round first grid">
 		<h2>Product List</h2>
 		<div class="block">
+		<?php 
+			if(isset($delpro)){
+				echo $delpro;  
+			}
+			?>
 			<table class="data display datatable" id="example">
 				<thead>
 					<tr>

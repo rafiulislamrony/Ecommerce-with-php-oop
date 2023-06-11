@@ -78,12 +78,18 @@ class Customer
                 Session::set("customarlogin", true);
                 Session::set("customerId", $value['id']);
                 Session::set("customerName", $value['name']);
-                header("Location:order.php");
+                header("Location:cart.php");
             } else {
                 $message = "<span class='error'>Email or Password are not matched!</span>";
                 return $message;
             }
         } 
+    }
+
+    public function getCustomerData($id){
+        $query = "SELECT * FROM tbl_customer WHERE id='$id'"; 
+        $result = $this->db->select($query);
+        return $result; 
     }
 
 

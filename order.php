@@ -1,5 +1,11 @@
 <?php include 'inc/header.php' ?>
  
+<?php
+$login = Session::get("customarlogin");
+if($login == false){
+    header("Location:login.php");
+}
+?>
 
 <div class="main">
 	<div class="content">

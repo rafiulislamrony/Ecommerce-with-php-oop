@@ -82,20 +82,20 @@ header("Cache-Control: max-age=2592000");
 						</a>
 					</div>
 				</div>
-				<?php 
-				if(isset($_GET['cid'])){
+				<?php
+				if (isset($_GET['cid'])) {
 					$delData = $ct->delCustomarCart();
 					Session::destroy();
 				}
-				?> 
+				?>
 				<div class="login">
 					<?php
 					$login = Session::get("customarlogin");
 					if ($login == false) { ?>
 						<a href="login.php">Login</a>
 					<?php } else { ?>
-						<a href="?cid=<?php Session::get('customerId'); ?>">Logout</a> 
-					<?php } ?> 
+						<a href="?cid=<?php Session::get('customerId'); ?>">Logout</a>
+					<?php } ?>
 				</div>
 
 				<div class="clear"></div>
@@ -108,7 +108,19 @@ header("Cache-Control: max-age=2592000");
 				<li><a href="index.php">Home</a></li>
 				<li><a href="products.php">Products</a> </li>
 				<li><a href="topbrands.php">Top Brands</a></li>
-				<li><a href="cart.php">Cart</a></li>
+
+				<?php
+				$chkCart = $ct->checkCartTable();
+				if($chkCart){ ?>
+					<li><a href="cart.php">Cart</a></li> 
+				<?php } ?>
+
+				<?php
+				$login = Session::get("customarlogin");
+				if ($login == true) { ?>
+					<li><a href="profile.php">Profile</a></li>
+				<?php } ?>
+
 				<li><a href="contact.php">Contact</a> </li>
 				<div class="clear"></div>
 			</ul>

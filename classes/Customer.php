@@ -1,11 +1,12 @@
 <?php
 $filepath = realpath(dirname(__FILE__));
-include_once ($filepath.'/../lib/Database.php');
-include_once ($filepath.'/../helpers/Format.php');  
+include_once($filepath . '/../lib/Database.php');
+include_once($filepath . '/../helpers/Format.php');
 ?>
 
 <?php
-class Customer{
+class Customer
+{
 
     private $db;
     private $fm;
@@ -14,6 +15,51 @@ class Customer{
     {
         $this->db = new Database();
         $this->fm = new Format();
+    }
+    public function customerRegistration($data)
+    {
+        $name = $this->fm->validation($data['name']);
+        $city = $this->fm->validation($data['city']);
+        $zip = $this->fm->validation($data['zip']);
+        $email = $this->fm->validation($data['email']);
+        $address = $this->fm->validation($data['address']);
+        $country = $this->fm->validation($data['country']);
+        $phone = $this->fm->validation($data['phone']);
+        $password = md5($this->fm->validation($data['password']));
+
+        $name = $this->db->link->real_escape_string($name);
+        $city = $this->db->link->real_escape_string($city);
+        $zip = $this->db->link->real_escape_string($zip);
+        $email = $this->db->link->real_escape_string($email);
+        $address = $this->db->link->real_escape_string($address);
+        $country = $this->db->link->real_escape_string($country);
+        $phone = $this->db->link->real_escape_string($phone);
+        $password = $this->db->link->real_escape_string($password);
+
+
+        if ($name == "" || $city == "" || $zip == "" || $email == "" || $address == "" || $country == "" || $phone == "" || $password == "") {
+            $message = "<span class='error'>Field must not be empty.</span>";
+            return $message;
+        }
+        $mailquery = "SELECT * FROM tbl_customer WHERE email='$email' LIMIT 1";
+        $mailCheck = $this->db->select($mailquery);
+        if ($mailCheck != false) {
+            $message = "<span class='error'>Email already Exist.</span>";
+            return $message;
+        } else {
+            $query = "INSERT INTO tbl_customer(name, address, city, country, zip, phone, email, password) 
+            VALUES('$name','$address','$city','$country', '$zip','$phone', '$email', '$password')";
+            $result = $this->db->insert($query);
+            if ($result) {
+                $message = "<span class='success'>Registration Successfully. </span>";
+                return $message;
+            } else {
+                $message = "<span class='error'>Registration Not Successful. </span>";
+                return $message;
+            }
+        }
+
+
     }
 
 

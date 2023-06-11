@@ -60,7 +60,7 @@ class Customer
         }
     }
     public function customerLogin($data)
-    { 
+    {
         $email = $this->fm->validation($data['email']);
         $password = md5($this->fm->validation($data['password']));
 
@@ -70,7 +70,7 @@ class Customer
         if ($email == "" || $password == "") {
             $message = "<span class='error'>Field must not be empty.</span>";
             return $message;
-        } else { 
+        } else {
             $query = "SELECT * FROM tbl_customer WHERE email='$email' AND password='$password'";
             $result = $this->db->select($query);
             if ($result != false) {
@@ -83,13 +83,59 @@ class Customer
                 $message = "<span class='error'>Email or Password are not matched!</span>";
                 return $message;
             }
-        } 
+        }
     }
 
-    public function getCustomerData($id){
-        $query = "SELECT * FROM tbl_customer WHERE id='$id'"; 
+    public function getCustomerData($id)
+    {
+        $query = "SELECT * FROM tbl_customer WHERE id='$id'";
         $result = $this->db->select($query);
-        return $result; 
+        return $result;
+    }
+
+    public function customerUpdate($data, $customerId) 
+    {  
+        $name = $this->fm->validation($data['name']);
+        $city = $this->fm->validation($data['city']);
+        $zip = $this->fm->validation($data['zip']);
+        $email = $this->fm->validation($data['email']);
+        $address = $this->fm->validation($data['address']);
+        $country = $this->fm->validation($data['country']);
+        $phone = $this->fm->validation($data['phone']);
+
+        $name = $this->db->link->real_escape_string($name);
+        $city = $this->db->link->real_escape_string($city);
+        $zip = $this->db->link->real_escape_string($zip);
+        $email = $this->db->link->real_escape_string($email);
+        $address = $this->db->link->real_escape_string($address);
+        $country = $this->db->link->real_escape_string($country);
+        $phone = $this->db->link->real_escape_string($phone);
+
+        if ($name == "" || $city == "" || $zip == "" || $email == "" || $address == "" || $country == "" || $phone == "") {
+            $message = "<span class='error'>Field must not be empty.</span>";
+            return $message;
+        }else {
+            $query = "UPDATE tbl_customer 
+            SET 
+            name    = '$name',
+            address = '$address',
+            city    = '$city',
+            country = '$country',
+            zip     = '$zip',
+            phone   = '$phone',
+            email   = '$email'
+            WHERE id ='$customerId'"; 
+
+            $result = $this->db->update($query);
+             
+            if($result){
+               $message = "<span class='success'>Profile Updated Successfully. </span>"; 
+               return $message;
+            }else{
+                $message = "<span class='error'>Profile Not Updated.</span>"; 
+                return $message;
+            }
+        }
     }
 
 

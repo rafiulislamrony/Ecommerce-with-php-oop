@@ -4,7 +4,7 @@ $login = Session::get("customarlogin");
 if ($login == false) {
     header("Location:login.php");
 }
-?>
+?> 
 
 <style>
     .tblone {
@@ -27,6 +27,10 @@ if ($login == false) {
             if ($getData) {
                 while ($result = $getData->fetch_assoc()) { ?>
                     <table class="tblone">
+                        
+                       <tr> 
+                            <td colspan="3"> <h2>Your Profile Details</h2></td> 
+                        </tr>
                         <tr>
                             <td width="20%">Name</td>
                             <td width="5%">:</td>
@@ -62,7 +66,11 @@ if ($login == false) {
                             <td>:</td>
                             <td> <?php echo $result['country'];?> </td>
                         </tr>
-
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td> <a href="editprofile.php">Update Profile</a>   </td>
+                        </tr> 
                     </table>
                 <?php }
             } ?>

@@ -82,16 +82,20 @@ header("Cache-Control: max-age=2592000");
 						</a>
 					</div>
 				</div>
-
+				<?php 
+				if(isset($_GET['cid'])){
+					$delData = $ct->delCustomarCart();
+					Session::destroy();
+				}
+				?> 
 				<div class="login">
 					<?php
 					$login = Session::get("customarlogin");
 					if ($login == false) { ?>
 						<a href="login.php">Login</a>
 					<?php } else { ?>
-						<a href="">Logout</a>
-					<?php } ?>
-
+						<a href="?cid=<?php Session::get('customerId'); ?>">Logout</a> 
+					<?php } ?> 
 				</div>
 
 				<div class="clear"></div>

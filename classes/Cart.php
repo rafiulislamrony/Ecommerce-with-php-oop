@@ -61,11 +61,8 @@ class Cart
         $quantity = $this->fm->validation($quantity);  
         $cartId = $this->db->link->real_escape_string($cartId); 
         $quantity = $this->db->link->real_escape_string($quantity);
-
         $query = "UPDATE tbl_cart SET quantity = '$quantity' WHERE cartId ='$cartId'"; 
-        
         $result = $this->db->update($query);
-         
         if($result){
             header("Location:cart.php");
         }else{
@@ -94,6 +91,12 @@ class Cart
         $query = "SELECT * FROM tbl_cart WHERE sId='$sId'"; 
         $result = $this->db->select($query);
         return $result; 
+    }
+
+    public function delCustomarCart(){
+        $sId = session_id();
+        $query = "DELETE FROM tbl_cart WHERE sId='$sId'";
+        $this->db->delete($query);  
     }
 
 }

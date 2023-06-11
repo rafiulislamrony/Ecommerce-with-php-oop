@@ -257,6 +257,18 @@ class Product
         $result = $this->db->select($query);
         return $result; 
     }
-
+    
+    public function productByCat($id) 
+    {
+        $query = "SELECT * FROM tbl_product WHERE catId='$id'";
+        $result = $this->db->select($query);
+        return $result;
+    }
+    public function catNameById($id) 
+    {
+        $query = "SELECT * FROM tbl_category WHERE catId='$id'";
+        $result = $this->db->select($query);
+        return $result;
+    }
 }
 ?>

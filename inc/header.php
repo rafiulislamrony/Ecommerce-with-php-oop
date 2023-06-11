@@ -2,10 +2,10 @@
 include './lib/Session.php';
 Session::init();
 include './lib/Database.php';
-include './helpers/Format.php'; 
- 
-spl_autoload_register(function($class){
-	include_once "classes/".$class.".php";
+include './helpers/Format.php';
+
+spl_autoload_register(function ($class) {
+	include_once "classes/" . $class . ".php";
 });
 
 $db = new Database();
@@ -65,17 +65,17 @@ header("Cache-Control: max-age=2592000");
 						<a href="#" title="View my shopping cart" rel="nofollow">
 							<span class="cart_title">Cart</span>
 							<span class="no_product">
-							<?php   
-							$getData = $ct->checkCartTable();
-							if($getData){
-								$sum = Session::get("sum");
-								$qty = Session::get("qty");
-								echo "$".$sum." | Qty: ".$qty; 
-							}else{
-								echo "(empty)"; 
-							}
-								
-							?>
+								<?php
+								$getData = $ct->checkCartTable();
+								if ($getData) {
+									$sum = Session::get("sum");
+									$qty = Session::get("qty");
+									echo "$" . $sum . " | Qty: " . $qty;
+								} else {
+									echo "(empty)";
+								}
+
+								?>
 
 							</span>
 						</a>

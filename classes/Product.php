@@ -1,7 +1,7 @@
 <?php
 $filepath = realpath(dirname(__FILE__));
-include_once ($filepath.'/../lib/Database.php');
-include_once ($filepath.'/../helpers/Format.php');  
+include_once($filepath . '/../lib/Database.php');
+include_once($filepath . '/../helpers/Format.php');
 ?>
 
 <?php
@@ -208,33 +208,55 @@ class Product
             $message = "<span class='success'>Product Deleted Successfully. </span>";
             return $message;
         } else {
-            $message = "<span class='error'>Product Not Delete.</span>"; 
+            $message = "<span class='error'>Product Not Delete.</span>";
             return $message;
         }
     }
-
-    public function getFeaturedProduct(){
-        $query  = "SELECT * FROM tbl_product WHERE type='0' ORDER BY productId DESC LIMIT 4";
-        $result = $this->db->select($query); 
+    public function getFeaturedProduct()
+    {
+        $query = "SELECT * FROM tbl_product WHERE type='0' ORDER BY productId DESC LIMIT 4";
+        $result = $this->db->select($query);
         return $result;
     }
-    public function getNewProduct(){ 
-        $query  = "SELECT * FROM tbl_product ORDER BY productId DESC LIMIT 4";
-        $result = $this->db->select($query); 
+    public function getNewProduct()
+    {
+        $query = "SELECT * FROM tbl_product ORDER BY productId DESC LIMIT 4";
+        $result = $this->db->select($query);
         return $result;
     }
-
 
     public function getSingleProduct($id)
     {
         $query = "SELECT p.*, c.catName, b.brandName
         FROM tbl_product as p, tbl_category as c, tbl_brands as b 
-        WHERE p.catId = c.catId AND p.brandId = b.brandId AND p.productId='$id'"; 
+        WHERE p.catId = c.catId AND p.brandId = b.brandId AND p.productId='$id'";
         $result = $this->db->select($query);
         return $result;
     }
-
+    public function latestFromIphone()
+    {
+        $query = "SELECT * FROM tbl_product WHERE brandId ='2' ORDER BY productId DESC LIMIT 1";
+        $result = $this->db->select($query);
+        return $result; 
+    }
+    public function latestFromSamsung()
+    {
+        $query = "SELECT * FROM tbl_product WHERE brandId ='1' ORDER BY productId DESC LIMIT 1";
+        $result = $this->db->select($query);
+        return $result; 
+    }
+    public function latestFromCanon()
+    {
+        $query = "SELECT * FROM tbl_product WHERE brandId ='4' ORDER BY productId DESC LIMIT 1";
+        $result = $this->db->select($query);
+        return $result; 
+    }
+    public function latestFromAcer()
+    {
+        $query = "SELECT * FROM tbl_product WHERE brandId ='3' ORDER BY productId DESC LIMIT 1";
+        $result = $this->db->select($query);
+        return $result; 
+    }
 
 }
-
 ?>

@@ -11,17 +11,19 @@ if ($login == false) {
         <div class="section-group">
             <div class="payment">
                 <h2>Chose Payment Option</h2>
-                <a href="ofline.php">Cash On Delivary</a>
-                <a href="online.php">Pay With Card </a> 
+                <a href="paymentoffline.php">Cash On Delivary</a>
+                <a href="paymentonline.php">Pay With Card </a> 
             </div>
             <div class="back">
                     <a href="cart.php">Previous</a>
-                </div>
+               
+             </div>
 
 
         </div>
     </div>
 </div>
+
 <style>
     .payment {
         width: 500px; 

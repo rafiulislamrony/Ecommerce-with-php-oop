@@ -111,9 +111,9 @@ header("Cache-Control: max-age=2592000");
 
 				<?php
 				$chkCart = $ct->checkCartTable();
-				if($chkCart){ ?>
-					<li><a href="cart.php">Cart</a></li> 
-					<li><a href="payment.php">Payment</a></li> 
+				if ($chkCart) { ?>
+					<li><a href="cart.php">Cart</a></li>
+					<li><a href="payment.php">Payment</a></li>
 				<?php } ?>
 
 				<?php

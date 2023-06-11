@@ -5,7 +5,7 @@ include_once ($filepath.'/../helpers/Format.php');
 ?>
 
 <?php
-class User{
+class Customer{
 
     private $db;
     private $fm;

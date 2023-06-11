@@ -1,5 +1,12 @@
 <?php include 'inc/header.php' ?>
 <?php
+$login =  Session::get("customarlogin");
+if($login == true){
+	header("Location:order.php");
+}
+?>
+
+<?php
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
 	$customerLogin = $cmr->customerLogin($_POST);
 }

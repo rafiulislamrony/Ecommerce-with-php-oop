@@ -58,8 +58,32 @@ class Customer
                 return $message;
             }
         }
+    }
+    public function customerLogin($data)
+    { 
+        $email = $this->fm->validation($data['email']);
+        $password = md5($this->fm->validation($data['password']));
 
+        $email = $this->db->link->real_escape_string($email);
+        $password = $this->db->link->real_escape_string($password);
 
+        if ($email == "" || $password == "") {
+            $message = "<span class='error'>Field must not be empty.</span>";
+            return $message;
+        } else { 
+            $query = "SELECT * FROM tbl_customer WHERE email='$email' AND password='$password'";
+            $result = $this->db->select($query);
+            if ($result != false) {
+                $value = $result->fetch_assoc();
+                Session::set("customarlogin", true);
+                Session::set("customerId", $value['id']);
+                Session::set("customerName", $value['name']);
+                header("Location:order.php");
+            } else {
+                $message = "<span class='error'>Email or Password are not matched!</span>";
+                return $message;
+            }
+        } 
     }
 
 

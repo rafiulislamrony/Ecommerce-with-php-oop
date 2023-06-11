@@ -41,7 +41,7 @@ class Cart
 
             $inserted_row = $this->db->insert($query);
 
-            if ($result) {
+            if ($inserted_row) { 
                 header("Location:cart.php");
             } else {
                 header("Location:404.php");
@@ -98,6 +98,29 @@ class Cart
         $query = "DELETE FROM tbl_cart WHERE sId='$sId'";
         $this->db->delete($query);  
     } 
+
+    public function orderProduct($customerId){
+        $sId = session_id();
+        $query = "SELECT * FROM tbl_cart WHERE sId='$sId'"; 
+        $getProduct = $this->db->select($query);
+
+        if($getProduct){
+            while($result = $getProduct->fetch_assoc()){
+                $productId = $result['productId'];
+                $productName = $result['productName'];
+                $quantity = $result['quantity'];
+                $price = $result['price'];
+                $image = $result['image']; 
+
+                $query = "INSERT INTO  tbl_order(sId, productId, productName, quantity, price,  image) 
+                VALUES('$customerId','$productId','$productName', '$quantity', '$price', '$image')";
+                $inserted_row = $this->db->insert($query);
+            }
+        }
+
+
+         
+    }
 
 }
 

@@ -5,6 +5,18 @@ if ($login == false) {
     header("Location:login.php");
 }
 ?>
+<?php
+
+if(isset($_GET['orderid']) && $_GET['orderid']== 'order'){
+    $customerId = Session::get("customerId");
+    $insertOrder = $ct->orderProduct($customerId);
+
+    $delData = $ct->delCustomarCart();
+    header("Location:success.php");
+
+}
+
+?>
 
 <div class="main">
     <div class="content">
@@ -178,8 +190,7 @@ if ($login == false) {
         </div>
         <div class="back">
            <a href="payment.php">Previous</a> 
-           <a href="payment.php">Order</a> 
-          
+           <a href="?orderid=order">Order</a> 
         </div>
 
     </div>

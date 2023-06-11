@@ -16,6 +16,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	}
 }
 ?>
+<?php
+
+if (!isset($_GET['id'])) {
+  echo "<meta http-equiv='refresh' content='0;URL=?id=live'/>";
+}
+
+?>
+
 
 <div class="main">
 	<div class="content">
@@ -127,7 +135,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 					</tr>
 				</table>
 				<?php } else{ 
-					 echo "<span class='error'>Cart Empty ! Please Shop now.</span>"; 
+					//  echo "<span class='error'>Cart Empty ! Please Shop now.</span>"; 
+					header("Location:index.php");
 				}
 				?>  
 			</div>

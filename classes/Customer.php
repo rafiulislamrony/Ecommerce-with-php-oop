@@ -62,7 +62,7 @@ class Customer
     public function customerLogin($data)
     {
         $email = $this->fm->validation($data['email']);
-        $password = md5($this->fm->validation($data['password']));
+        $password = $this->fm->validation(md5($data['password']));
 
         $email = $this->db->link->real_escape_string($email);
         $password = $this->db->link->real_escape_string($password);
@@ -72,7 +72,8 @@ class Customer
             return $message;
         } else {
             $query = "SELECT * FROM tbl_customer WHERE email='$email' AND password='$password'";
-            $result = $this->db->select($query);
+            $result = $this->db->select($query); 
+
             if ($result != false) {
                 $value = $result->fetch_assoc();
                 Session::set("customarlogin", true);

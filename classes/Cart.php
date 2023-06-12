@@ -109,7 +109,7 @@ class Cart
                 $productId = $result['productId'];
                 $productName = $result['productName'];
                 $quantity = $result['quantity'];
-                $price = $result['price'];
+                $price = $result['price'] * $quantity;
                 $image = $result['image']; 
 
                 $query = "INSERT INTO  tbl_order(sId, productId, productName, quantity, price,  image) 
@@ -117,9 +117,12 @@ class Cart
                 $inserted_row = $this->db->insert($query);
             }
         }
+    }
 
-
-         
+    public function payableAmount($customerId){
+        $query = "SELECT price FROM tbl_order WHERE sId='$customerId' AND date=now()";
+        $result = $this->db->select($query);
+        return $result;
     }
 
 }

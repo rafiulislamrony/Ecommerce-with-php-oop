@@ -70,11 +70,7 @@ if ($login == false) {
                                     <td>
                                         <p>N/A</p>
                                     </td>
-                                <?php } ?>
-
-                                <td>
-                                    <a href="" onclick="return confirm('Are you sure to delete!')">X</a>
-                                </td>
+                                <?php } ?> 
 
 
                             </tr>

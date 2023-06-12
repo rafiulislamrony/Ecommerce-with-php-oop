@@ -1,5 +1,6 @@
 <?php
 include '../lib/Session.php';
+
 Session::checkSession();
 ?>
 

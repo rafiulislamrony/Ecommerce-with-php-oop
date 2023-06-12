@@ -124,6 +124,11 @@ class Cart
         $result = $this->db->select($query);
         return $result;
     }
+    public function getOrderProduct($customerId){
+        $query = "SELECT * FROM tbl_order WHERE sId='$customerId' ORDER BY productId DESC";
+        $result = $this->db->select($query);
+        return $result;
+    }
 
 }
 

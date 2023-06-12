@@ -97,6 +97,7 @@ if (!isset($_GET['id'])) {
 					}
 					?>  
 				</table>
+				
 				<?php 
 					$getData = $ct->checkCartTable();  
 					if($getData){ ?> 

@@ -12,13 +12,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
 ?>
 
 <?php
-$cmrId = Session::get("customerId");
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['compare'])) {
 	$productId = $_POST['productId'];
 	$insertCompare = $pd->insertCompareData($productId, $customerId);
 }
 ?>
 
+<?php
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['wlist'])) {
+	$saveWlist = $pd->saveWishlist($id, $cmrId);
+}
+?>
 
 
 <div class="main">
@@ -67,14 +71,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['compare'])) {
 								echo $insertCompare;
 							}
 							?>
+							<?php
+							if (isset($saveWlist)) {
+								echo $saveWlist;
+							}
+							?>
 						</div>
 						<?php $login = Session::get("customarlogin");
 						if ($login == true) { ?>
 							<div class="add-cart">
-								<form action="" method="POST">
+								<form action="" method="POST" style="display: inline-block;">
 									<input type="hidden" class="buyfield" name="productId"
 										value="<?php echo $result['productId']; ?>" />
 									<input type="submit" class="buysubmit" name="compare" value="Compare" />
+								</form>
+								<form action="" method="POST" style="display: inline-block;">
+									<input type="hidden" class="buyfield" name="productId"
+										value="<?php echo $result['productId']; ?>" />
+									<input type="submit" class="buysubmit" name="wlist" value="Wishlist" />
 								</form>
 							</div>
 						<?php } ?>

@@ -273,22 +273,22 @@ class Product
     public function insertCompareData($productId, $customerId)
     {
         $customerId = $this->fm->validation($customerId);
-        $productId = $this->fm->validation($productId); 
+        $productId = $this->fm->validation($productId);
         $customerId = $this->db->link->real_escape_string($customerId);
         $productId = $this->db->link->real_escape_string($productId);
 
-        $comparequery = "SELECT * FROM tbl_compare WHERE cmrId='$customerId' AND productId='$productId' "; 
+        $comparequery = "SELECT * FROM tbl_compare WHERE cmrId='$customerId' AND productId='$productId' ";
         $checkresult = $this->db->select($comparequery);
-        if ($checkresult) {   
+        if ($checkresult) {
             $message = "<span class='error'>Allready Added to Compare.</span>";
-            return $message; 
+            return $message;
         }
 
         $query = "SELECT * FROM tbl_product WHERE productId='$productId'";
         $result = $this->db->select($query)->fetch_assoc();
         if ($result) {
             $productId = $result['productId'];
-            $productName = $result['productName']; 
+            $productName = $result['productName'];
             $price = $result['price'];
             $image = $result['image'];
 
@@ -297,7 +297,7 @@ class Product
 
             $inserted_row = $this->db->insert($query);
 
-            if($inserted_row){
+            if ($inserted_row) {
                 $message = "<span class='success'>Added to Compare.</span>";
                 return $message;
             } else {
@@ -307,22 +307,59 @@ class Product
         }
     }
 
-    public function getComapareData($cmrId){ 
-        $query = "SELECT * FROM tbl_compare WHERE cmrId='$cmrId' ORDER By id DESC"; 
-        $result = $this->db->select($query); 
+    public function getComapareData($cmrId)
+    {
+        $query = "SELECT * FROM tbl_compare WHERE cmrId='$cmrId' ORDER By id DESC";
+        $result = $this->db->select($query);
         return $result;
     }
-    public function delCompareData($customerId){ 
-        $query = "DELETE FROM tbl_compare WHERE cmrId='$customerId'"; 
-        $result = $this->db->delete($query);  
+    public function delCompareData($customerId)
+    {
+        $query = "DELETE FROM tbl_compare WHERE cmrId='$customerId'";
+        $result = $this->db->delete($query);
     }
-    public function getcomcount($customerId){ 
-        $query = "SELECT * FROM tbl_compare WHERE cmrId='$customerId'"; 
-        $result = $this->db->select($query);  
+    public function getcomcount($customerId)
+    {
+        $query = "SELECT * FROM tbl_compare WHERE cmrId='$customerId'";
+        $result = $this->db->select($query);
         $rows = $result->fetch_all(MYSQLI_ASSOC);
         $count = count($rows);
-        return $count; 
+        return $count;
     }
-     
+
+    public function saveWishlist($id, $cmrId)
+    {
+        $comparequery = "SELECT * FROM tbl_wlist WHERE cmrId='$cmrId' AND productId='$id' ";
+        $checkresult = $this->db->select($comparequery);
+        if ($checkresult) {
+            $message = "<span class='error'>Allready Added to Wishlist.</span>";
+            return $message;
+        }
+
+
+        $pquery = "SELECT * FROM tbl_product WHERE productId='$id' ";
+        $result = $this->db->select($pquery)->fetch_assoc();
+
+        if ($result) {
+            $productId = $result['productId'];
+            $productName = $result['productName'];
+            $price = $result['price'];
+            $image = $result['image'];
+
+            $query = "INSERT INTO  tbl_wlist(cmrId, productId, productName, price,  image) 
+                VALUES('$cmrId','$productId','$productName', '$price', '$image')";
+            $inserted_row = $this->db->insert($query);
+
+            if ($inserted_row) {
+                $message = "<span class='success'>Wishlist Added.</span>";
+                return $message;
+            } else {
+                $message = "<span class='error'>Wishlist Not Added. </span>";
+                return $message;
+            }
+        }
+
+    }
+
 }
 ?>

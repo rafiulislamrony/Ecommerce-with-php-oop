@@ -11,14 +11,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
 }
 ?>
 
-<?php  
-$cmrId = Session::get("customerId"); 
+<?php
+$cmrId = Session::get("customerId");
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['compare'])) {
 	$productId = $_POST['productId'];
-   $insertCompare = $pd->insertCompareData($productId, $customerId); 
-}   
+	$insertCompare = $pd->insertCompareData($productId, $customerId);
+}
 ?>
- 
+
 
 
 <div class="main">
@@ -63,18 +63,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['compare'])) {
 								?>
 							</span>
 							<?php
-								if (isset($insertCompare)) {
-									echo $insertCompare; 
-								}
+							if (isset($insertCompare)) {
+								echo $insertCompare;
+							}
 							?>
-						</div> 
-						<div class="add-cart">
-								<form action="" method="POST"> 
-								<input type="hidden" class="buyfield" name="productId" value="<?php echo $result['productId'];?>"/>
+						</div>
+						<?php $login = Session::get("customarlogin");
+						if ($login == true) { ?>
+							<div class="add-cart">
+								<form action="" method="POST">
+									<input type="hidden" class="buyfield" name="productId"
+										value="<?php echo $result['productId']; ?>" />
 									<input type="submit" class="buysubmit" name="compare" value="Compare" />
 								</form>
 							</div>
-					
+						<?php } ?>
+
 						<div class="product-desc">
 							<h2>Product Details</h2>
 							<?php echo $result['body']; ?>

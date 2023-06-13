@@ -84,7 +84,9 @@ header("Cache-Control: max-age=2592000");
 				</div>
 				<?php
 				if (isset($_GET['cid'])) {
+					$customerId = Session::get("customerId"); 
 					$delData = $ct->delCustomarCart();
+					$delComp = $pd->delCompareData($customerId);
 					Session::destroy();
 				}
 				?>
@@ -127,7 +129,30 @@ header("Cache-Control: max-age=2592000");
 				if ($login == true) { ?>
 					<li><a href="profile.php">Profile</a></li>
 				<?php } ?>
-				<li><a href="compare.php">Compare</a> </li>
+
+				<?php
+                    $cmrId = Session::get("customerId"); 
+					$getPd = $pd->getComapareData($cmrId); 
+					if ($getPd) {
+				?>
+
+				<li>
+					<a href="compare.php">Compare 
+						<span> 
+						<?php 
+						 $cmrId = Session::get("customerId"); 
+						 $getcomcount = $pd->getcomcount($cmrId); 
+
+						 if($getcomcount){
+							echo "(".$getcomcount.")";
+						 }
+						?>
+						</span>
+						
+					 </a> 
+				</li>
+
+				<?php } ?>
 				<li><a href="contact.php">Contact</a> </li>
 				<div class="clear"></div>
 			</ul>

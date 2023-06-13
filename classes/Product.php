@@ -311,7 +311,17 @@ class Product
         $query = "SELECT * FROM tbl_compare WHERE cmrId='$cmrId' ORDER By id DESC"; 
         $result = $this->db->select($query); 
         return $result;
-      
+    }
+    public function delCompareData($customerId){ 
+        $query = "DELETE FROM tbl_compare WHERE cmrId='$customerId'"; 
+        $result = $this->db->delete($query);  
+    }
+    public function getcomcount($customerId){ 
+        $query = "SELECT * FROM tbl_compare WHERE cmrId='$customerId'"; 
+        $result = $this->db->select($query);  
+        $rows = $result->fetch_all(MYSQLI_ASSOC);
+        $count = count($rows);
+        return $count; 
     }
      
 }

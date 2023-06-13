@@ -125,7 +125,7 @@ class Cart
         return $result;
     }
     public function getOrderProduct($customerId){
-        $query = "SELECT * FROM tbl_order WHERE sId='$customerId' ORDER BY productId DESC";  
+        $query = "SELECT * FROM tbl_order WHERE sId='$customerId' ORDER BY date DESC";  
         $result = $this->db->select($query);
         return $result;
     }
@@ -136,9 +136,33 @@ class Cart
     }
 
     public function getAllOrderProduct(){
-        $query = "SELECT * FROM tbl_order ORDER BY date";
+        $query = "SELECT * FROM tbl_order ORDER BY date DESC";
         $result = $this->db->select($query);
         return $result;
+    }
+    public function productShifted($id,$date,$price){
+
+        $id = $this->fm->validation($id);
+        $date = $this->fm->validation($date);
+        $price = $this->fm->validation($price);
+
+        $id = $this->db->link->real_escape_string($id);
+        $date = $this->db->link->real_escape_string($date);
+        $price = $this->db->link->real_escape_string($price);
+
+
+            $query = "UPDATE tbl_order SET 
+            status = '1' 
+            WHERE sId ='$id' AND date='$date' AND price='$price' "; 
+            $result = $this->db->update($query);
+             
+            if($result){
+               $message = "<span class='success'>Updated Successfully. </span>"; 
+               return $message;
+            }else{
+                $message = "<span class='error'>Not Updated.</span>"; 
+                return $message;
+            }
     }
      
    

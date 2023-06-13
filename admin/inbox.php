@@ -1,12 +1,35 @@
-﻿<?php
+﻿<?php include 'inc/header.php'; ?>
+<?php include 'inc/sidebar.php'; ?>
+
+<?php
 $filepath = realpath(dirname(__FILE__));
 include_once($filepath . '/../classes/Cart.php');
+
+$ct = new Cart();
+$fm = new Format();
 ?>
-<?php include 'inc/header.php'; ?>
-<?php include 'inc/sidebar.php'; ?>
+
+<?php
+
+if (isset($_GET['shiftid'])) {
+	$id = $_GET['shiftid'];
+	$time = $_GET['time'];
+	$price = $_GET['price'];
+	$shift = $ct->productShifted($id, $time, $price);
+
+}
+
+?>
+
+
 <div class="grid_10">
 	<div class="box round first grid">
 		<h2>Inbox</h2>
+		<?php
+		if (isset($shift)) {
+			echo $shift;
+		}
+		?>
 		<div class="block">
 			<table class="data display datatable" id="example">
 				<thead>
@@ -23,8 +46,7 @@ include_once($filepath . '/../classes/Cart.php');
 				</thead>
 				<tbody>
 					<?php
-					$ct = new Cart();
-					$fm = new Format();
+
 					$getOrder = $ct->getAllOrderProduct();
 					if ($getOrder) {
 						while ($result = $getOrder->fetch_assoc()) { ?>
@@ -43,7 +65,8 @@ include_once($filepath . '/../classes/Cart.php');
 									<?php echo $result['quantity'] ?>
 								</td>
 								<td>
-									$<?php echo $result['price'] ?>
+									$
+									<?php echo $result['price'] ?>
 								</td>
 								<td>
 									<?php echo $result['sId'] ?>
@@ -56,11 +79,13 @@ include_once($filepath . '/../classes/Cart.php');
 
 								if ($result['status'] == '0') { ?>
 									<td>
-										<a href="?shiftid=<?php echo $result['id']; ?>&price=<?php echo $result['price']; ?>&time=<?php echo $result['date']; ?>">Shifted</a>
+										<a
+											href="?shiftid=<?php echo $result['sId']; ?>&price=<?php echo $result['price']; ?>&time=<?php echo $result['date']; ?>">Shifted</a>
 									</td>
 								<?php } else { ?>
 									<td>
-										<a href="?shiftid=<?php echo $result['id']; ?>&price=<?php echo $result['price']; ?>&time=<?php echo $result['date']; ?>">Remove</a>
+										<a
+											href="?shiftid=<?php echo $result['sId']; ?>&price=<?php echo $result['price']; ?>&time=<?php echo $result['date']; ?>">Remove</a>
 									</td>
 								<?php } ?>
 

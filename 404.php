@@ -21,9 +21,7 @@
             <div class="notfound">
                 <h2><span>404</span>Not Found</h2>
             </div>
-        </div>
-
-		 
+        </div> 
 		<div class="clear"></div>
 	</div>
 </div>

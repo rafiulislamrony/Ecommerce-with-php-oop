@@ -53,8 +53,8 @@ header("Cache-Control: max-age=2592000");
                     <img src="img/livelogo.png" alt="Logo" />
                 </div>
                 <div class="floatleft middle">
-                    <h1>Training with live project</h1>
-                    <p>www.trainingwithliveproject.com</p>
+                    <h1>Online Shop Bd</h1>
+                    <p>www.onlineshopbd.com</p>
                 </div>
                 <div class="floatright">
                     <div class="floatleft">

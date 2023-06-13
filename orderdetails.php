@@ -64,25 +64,29 @@ if ($login == false) {
                                     <?php
                                     if ($result['status'] == '0') {
                                         echo "Pending";
-                                    } elseif($result['status'] == '1'){ ?> 
-										<a href="?confirmid=<?php 
-											echo $customerId; ?>&price=<?php 
-											echo $result['price']; ?>&time=<?php 
-											echo $result['date']; ?>">Shifted
-										</a> 
-                                  <?php  }else{
-                                        echo "Confirm";  
+                                    } elseif($result['status'] == '1'){  
+                                        echo "Shifted";
+                                     }else{
+                                        echo "Ok";  
                                     }
                                     ?>
                                 </td>
 
 
                                 <?php
-                                if ($result['status'] == '2') { ?>
+                                if ($result['status'] == '1') { ?>
                                     <td>
-                                        <a href="" onclick="return confirm('Are you sure to delete!')">X</a>
+                                    <a href="?confirmid=<?php 
+											echo $customerId; ?>&price=<?php 
+											echo $result['price']; ?>&time=<?php 
+											echo $result['date']; ?>">Confirm
+										</a> 
                                     </td>
-                                <?php } else { ?>
+                                <?php } elseif($result['status'] == '2') { ?>
+                                    <td>
+                                        <p>Ok</p>
+                                    </td>
+                                <?php }elseif($result['status'] == '0') { ?>
                                     <td>
                                         <p>N/A</p>
                                     </td>

@@ -54,6 +54,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 								?>
 							</span>
 						</div>
+						<div class="add-cart">
+								 <a href="?wishlistid=<?php echo $result['productId'];?>" class="buysubmit">Wishlist</a>
+								 <a href="?compareid=<?php echo $result['productId'];?>" class="buysubmit">Compare</a>
+						</div>
 						<div class="product-desc">
 							<h2>Product Details</h2>
 							<?php echo $result['body']; ?>
@@ -72,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 							<li><a href="productbycat.php?catId=<?php echo $result['catId']; ?>"> <?php echo $result['catName']; ?></a></li>
 						<?php }
 					}
-					?> 
+					?>
 				</ul>
 			</div>
 		</div>

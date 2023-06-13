@@ -383,5 +383,24 @@ class Product
         return $result; 
     }
 
+    public function getByBrandAcer()
+    {
+        $query = "SELECT * FROM tbl_product WHERE brandId ='3' ORDER BY productId DESC LIMIT 4";
+        $result = $this->db->select($query);
+        return $result;
+    }
+    public function getByBrandSamsung() 
+    {
+        $query = "SELECT * FROM tbl_product WHERE brandId ='1' ORDER BY productId DESC LIMIT 4";
+        $result = $this->db->select($query);
+        return $result;
+    }
+    public function getByBrandCanon() 
+    {
+        $query = "SELECT * FROM tbl_product WHERE brandId ='4' ORDER BY productId DESC LIMIT 4";
+        $result = $this->db->select($query);
+        return $result;
+    }
+
 }
 ?>

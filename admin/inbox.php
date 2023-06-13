@@ -16,6 +16,13 @@ if (isset($_GET['shiftid'])) {
 	$time = $_GET['time'];
 	$price = $_GET['price'];
 	$shift = $ct->productShifted($id, $time, $price);
+}
+
+if (isset($_GET['delproid'])) {
+	$id = $_GET['delproid'];
+	$time = $_GET['time'];
+	$price = $_GET['price'];
+	$delOrder= $ct->delproductShifted($id, $time, $price);
 
 }
 
@@ -28,6 +35,9 @@ if (isset($_GET['shiftid'])) {
 		<?php
 		if (isset($shift)) {
 			echo $shift;
+		}
+		if (isset($delOrder)) {
+			echo $delOrder; 
 		}
 		?>
 		<div class="block">
@@ -80,12 +90,24 @@ if (isset($_GET['shiftid'])) {
 								if ($result['status'] == '0') { ?>
 									<td>
 										<a
-											href="?shiftid=<?php echo $result['sId']; ?>&price=<?php echo $result['price']; ?>&time=<?php echo $result['date']; ?>">Shifted</a>
+											href="?shiftid=<?php 
+											echo $result['sId']; ?>&price=<?php 
+											echo $result['price']; ?>&time=<?php 
+											echo $result['date']; ?>">Shifted
+										</a>
 									</td>
-								<?php } else { ?>
+								<?php } elseif($result['status'] == '1') { ?>
+									<td>
+										Pending
+									</td>
+								<?php }else{ ?>
 									<td>
 										<a
-											href="?shiftid=<?php echo $result['sId']; ?>&price=<?php echo $result['price']; ?>&time=<?php echo $result['date']; ?>">Remove</a>
+											href="?delproid=<?php echo 
+											$result['sId']; ?>&price=<?php 
+											echo $result['price']; ?>&time=<?php 
+											echo $result['date']; ?>">Removed
+										</a>
 									</td>
 								<?php } ?>
 

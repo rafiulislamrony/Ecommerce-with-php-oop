@@ -7,6 +7,15 @@ if ($login == false) {
 }
 ?>
 
+<?php
+  if (isset($_GET['confirmid'])) {
+    $id = $_GET['confirmid'];
+    $time = $_GET['time'];
+    $price = $_GET['price'];
+    $confirm = $ct->productShifConfirm($id, $time, $price);
+}  
+?>
+
 <div class="main">
     <div class="content">
         <div class="section-group">
@@ -46,23 +55,30 @@ if ($login == false) {
                                     <?php echo $result['quantity']; ?>
                                 </td>
                                 <td>
-                                    <?php echo $result['price']; ?>
+                                    $<?php echo $result['price']; ?>
                                 </td>
                                 <td>
                                     <?php echo $fm->formatDate($result['date']); ?>
                                 </td>
                                 <td>
                                     <?php
-                                    if ($result['status'] == 0) {
+                                    if ($result['status'] == '0') {
                                         echo "Pending";
-                                    } else {
-                                        echo "Shifted";
+                                    } elseif($result['status'] == '1'){ ?> 
+										<a href="?confirmid=<?php 
+											echo $customerId; ?>&price=<?php 
+											echo $result['price']; ?>&time=<?php 
+											echo $result['date']; ?>">Shifted
+										</a> 
+                                  <?php  }else{
+                                        echo "Confirm";  
                                     }
                                     ?>
                                 </td>
 
+
                                 <?php
-                                if ($result['status'] == 1) { ?>
+                                if ($result['status'] == '2') { ?>
                                     <td>
                                         <a href="" onclick="return confirm('Are you sure to delete!')">X</a>
                                     </td>
@@ -70,9 +86,7 @@ if ($login == false) {
                                     <td>
                                         <p>N/A</p>
                                     </td>
-                                <?php } ?> 
-
-
+                                <?php } ?>
                             </tr>
                         <?php }
                     }

@@ -376,6 +376,12 @@ class Product
         $count = count($rows);
         return $count;
     }
+    public function delWlistData($cmrId, $productId)
+    { 
+        $query = "DELETE FROM tbl_wlist WHERE cmrId='$cmrId' AND productId='$productId'"; 
+        $result = $this->db->select($query);  
+        return $result; 
+    }
 
 }
 ?>

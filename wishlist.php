@@ -1,18 +1,18 @@
 <?php include 'inc/header.php' ?>
+<?php 
+ 
+if(isset($_GET['detwlist'])){
+    $productId = $_GET['detwlist'];
+    $delWlist = $pd->delWlistData($cmrId, $productId);
+}
+
+?>
  
 <div class="main">
 	<div class="content">
 		<div class="cartoption">
 			<div class=" ">
-				<h2>Wishlist Product.</h2>
-				<?php
-				if (isset($updateCart)) {
-					echo $updateCart;
-				}
-				if (isset($delProduct)) {
-					echo $delProduct; 
-				}
-				?>
+				<h2>Wishlist Product.</h2> 
 				<table class="tblone">
 					<tr>
 						<th>SL No.</th>
@@ -35,7 +35,7 @@
                 <td><img src="admin/<?php echo $result['image']; ?>" alt="" style="width:150px; height:100px; object-fit: cover; " /></td>
                 <td>
                     <a href="details.php?proid=<?php echo $result['productId']; ?>">Buy Now</a>||
-                    <a href="detwlist.php?proid=<?php echo $result['productId']; ?>">Remove</a>
+                    <a href="?detwlist=<?php echo $result['productId']; ?>">Remove</a>
                 </td>  
             </tr> 
 						<?php }

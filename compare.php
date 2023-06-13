@@ -23,30 +23,28 @@
 					</tr>
 
 					<?php
-					$getPro = $ct->getCartProduct();
-					if ($getPro) {
+                    $cmrId = Session::get("customerId"); 
+					$getPd = $pd->getComapareData($cmrId); 
+					if ($getPd) {
 						$i = 0; 
-						while ($result = $getPro->fetch_assoc()) {
+						while ($result = $getPd->fetch_assoc()) {
 							$i++; ?>
-							<tr>
-								<td> <?php echo $i; ?> </td>
-								<td> <?php echo $result['productName']; ?> </td>
-								<td><img src="admin/<?php echo $result['image']; ?>" alt="" /></td>
-								<td><a href="details.php?proid=<?php echo $result['productId']; ?>">View</a></td>  
-								  
-                            </tr> 
+            <tr>
+                <td> <?php echo $i; ?> </td>
+                <td> <?php echo $result['productName']; ?> </td>
+                <td> <?php echo $result['price']; ?> </td>
+                <td><img src="admin/<?php echo $result['image']; ?>" alt="" style="width:150px; height:100px; object-fit: cover; " /></td>
+                <td><a href="details.php?proid=<?php echo $result['productId']; ?>">View</a></td>  
+            </tr> 
 						<?php }
 					}
 					?>  
 				</table> 
 			</div>
 			<div class="shopping">
-				<div class="shopleft">
+				<div class="" style="text-align: center;">
 					<a href="index.php"> <img src="images/shop.png" alt="" /></a>
-				</div>
-				<div class="shopright">
-					<a href="payment.php"> <img src="images/check.png" alt="" /></a>
-				</div>
+				</div> 
 			</div>
 		</div>
 		<div class="clear"></div>

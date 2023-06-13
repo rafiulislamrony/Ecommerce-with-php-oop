@@ -306,5 +306,13 @@ class Product
             }
         }
     }
+
+    public function getComapareData($cmrId){ 
+        $query = "SELECT * FROM tbl_compare WHERE cmrId='$cmrId' ORDER By id DESC"; 
+        $result = $this->db->select($query); 
+        return $result;
+      
+    }
+     
 }
 ?>

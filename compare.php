@@ -3,7 +3,7 @@
 <div class="main">
 	<div class="content">
 		<div class="cartoption">
-			<div class="cartpage">
+			<div class=" ">
 				<h2>Compare Product.</h2>
 				<?php
 				if (isset($updateCart)) {
@@ -16,105 +16,29 @@
 				<table class="tblone">
 					<tr>
 						<th>SL No.</th>
-						<th>Product Name</th>
-						<th>Image</th>
+						<th>Product Name</th> 
 						<th>Price</th>
-						<th>Quantity</th>
-						<th>Total Price</th>
+                        <th>Image</th>  
 						<th>Action</th>
 					</tr>
 
 					<?php
 					$getPro = $ct->getCartProduct();
 					if ($getPro) {
-						$i = 0;
-						$sum = 0;
-						$qty = 0;
+						$i = 0; 
 						while ($result = $getPro->fetch_assoc()) {
 							$i++; ?>
 							<tr>
-								<td>
-									<?php echo $i; ?>
-								</td>
-								<td>
-									<?php echo $result['productName']; ?>
-								</td>
+								<td> <?php echo $i; ?> </td>
+								<td> <?php echo $result['productName']; ?> </td>
 								<td><img src="admin/<?php echo $result['image']; ?>" alt="" /></td>
-								<td>$
-									<?php echo $result['price']; ?>
-									X
-									<?php echo $result['quantity']; ?>
-								</td>
-								<td>
- 
-									<form action="" method="POST">
-										<input type="hidden" name="cartId" value="<?php echo $result['cartId']; ?>"/>
-										<input type="number" name="quantity" value="<?php echo $result['quantity']; ?>"/>
-										<input type="submit" name="submit" value="Update"/>
-									</form>
-
-								</td>
-								<td>
-									<?php
-									$total = $result['price'] * $result['quantity'];
-									echo $total;
-									?>
-								</td>
-								<td><a href="?delpro=<?php echo $result['cartId']; ?>" onclick="return confirm('Are you sure to delete!')">X</a></td>
-							</tr>
-							<?php
-							$qty = $qty + $result['quantity']; 
-							$sum = $sum + $total;
-							Session::set("sum", $sum);
-							Session::set("qty", $qty); 
-							?>
+								<td><a href="details.php?proid=<?php echo $result['productId']; ?>">View</a></td>  
+								  
+                            </tr> 
 						<?php }
 					}
 					?>  
-				</table>
-				
-				<?php 
-					$getData = $ct->checkCartTable();  
-					if($getData){ ?> 
- 
-				<table style="float:right;text-align:left;" width="40%">
-					<tr>
-						<th>Sub Total : </th>
-						<td>$
-							<?php 
-							if(isset($sum)) {
-								echo $sum; 
-							}else{ 
-								echo "0.00";
-							}
-							?>
-						</td>
-					</tr>
-					<tr>
-						<th>VAT : </th>
-						<td>$10%</td>
-					</tr>
-					<tr>
-						<th>Grand Total :</th>
-						<td>
-							$
-							<?php
-							if(isset($sum)) {
-								$vat = $sum * 0.1;
-								$gtotal = $sum + $vat;
-								echo $gtotal;
-							}else{
-								echo "0.00";
-							}
-							?>
-						</td>
-					</tr>
-				</table>
-				<?php } else{ 
-					//  echo "<span class='error'>Cart Empty ! Please Shop now.</span>"; 
-					header("Location:index.php");
-				}
-				?>  
+				</table> 
 			</div>
 			<div class="shopping">
 				<div class="shopleft">

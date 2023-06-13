@@ -9,7 +9,6 @@ if ($login == false) {
  $cmrId = Session::get("customerId"); 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
     $updateCustomer = $cmr->customerUpdate($_POST, $cmrId); 
-      
 }   
 ?>
 

@@ -237,38 +237,74 @@ class Product
     {
         $query = "SELECT * FROM tbl_product WHERE brandId ='2' ORDER BY productId DESC LIMIT 1";
         $result = $this->db->select($query);
-        return $result; 
+        return $result;
     }
     public function latestFromSamsung()
     {
         $query = "SELECT * FROM tbl_product WHERE brandId ='1' ORDER BY productId DESC LIMIT 1";
         $result = $this->db->select($query);
-        return $result; 
+        return $result;
     }
     public function latestFromCanon()
     {
         $query = "SELECT * FROM tbl_product WHERE brandId ='4' ORDER BY productId DESC LIMIT 1";
         $result = $this->db->select($query);
-        return $result; 
+        return $result;
     }
     public function latestFromAcer()
     {
         $query = "SELECT * FROM tbl_product WHERE brandId ='3' ORDER BY productId DESC LIMIT 1";
         $result = $this->db->select($query);
-        return $result; 
+        return $result;
     }
-    
-    public function productByCat($id) 
+
+    public function productByCat($id)
     {
         $query = "SELECT * FROM tbl_product WHERE catId='$id'";
         $result = $this->db->select($query);
         return $result;
     }
-    public function catNameById($id) 
+    public function catNameById($id)
     {
         $query = "SELECT * FROM tbl_category WHERE catId='$id'";
         $result = $this->db->select($query);
         return $result;
+    }
+    public function insertCompareData($productId, $customerId)
+    {
+        $customerId = $this->fm->validation($customerId);
+        $productId = $this->fm->validation($productId); 
+        $customerId = $this->db->link->real_escape_string($customerId);
+        $productId = $this->db->link->real_escape_string($productId);
+
+        $comparequery = "SELECT * FROM tbl_compare WHERE cmrId='$customerId' AND productId='$productId' "; 
+        $checkresult = $this->db->select($comparequery);
+        if ($checkresult) {   
+            $message = "<span class='error'>Allready Added to Compare.</span>";
+            return $message; 
+        }
+
+        $query = "SELECT * FROM tbl_product WHERE productId='$productId'";
+        $result = $this->db->select($query)->fetch_assoc();
+        if ($result) {
+            $productId = $result['productId'];
+            $productName = $result['productName']; 
+            $price = $result['price'];
+            $image = $result['image'];
+
+            $query = "INSERT INTO tbl_compare(cmrId, productId, productName, price, image)  
+                VALUES('$customerId','$productId','$productName', '$price', '$image')";
+
+            $inserted_row = $this->db->insert($query);
+
+            if($inserted_row){
+                $message = "<span class='success'>Added to Compare.</span>";
+                return $message;
+            } else {
+                $message = "<span class='error'>Product Not Added. </span>";
+                return $message;
+            }
+        }
     }
 }
 ?>

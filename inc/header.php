@@ -134,8 +134,7 @@ header("Cache-Control: max-age=2592000");
                     $cmrId = Session::get("customerId"); 
 					$getPd = $pd->getComapareData($cmrId); 
 					if ($getPd) {
-				?>
-
+				?> 
 				<li>
 					<a href="compare.php">Compare 
 						<span> 
@@ -147,12 +146,31 @@ header("Cache-Control: max-age=2592000");
 							echo "(".$getcomcount.")";
 						 }
 						?>
-						</span>
-						
+						</span> 
 					 </a> 
-				</li>
-
+				</li> 
 				<?php } ?>
+
+				<?php 
+					$checkWlist = $pd->checkWlist($cmrId); 
+					if ($checkWlist) {
+				?> 
+				<li>
+					<a href="wishlist.php">Wishlist 
+						<span> 
+						<?php  
+						 $getwlistcount = $pd->getwlistcount($cmrId); 
+
+						 if($getwlistcount){
+							echo "(".$getwlistcount.")";
+						 }
+						?>
+						</span> 
+					 </a> 
+				</li> 
+				<?php } ?>
+
+
 				<li><a href="contact.php">Contact</a> </li>
 				<div class="clear"></div>
 			</ul>

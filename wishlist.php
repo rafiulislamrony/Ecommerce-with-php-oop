@@ -4,7 +4,7 @@
 	<div class="content">
 		<div class="cartoption">
 			<div class=" ">
-				<h2>Compare Product.</h2>
+				<h2>Wishlist Product.</h2>
 				<?php
 				if (isset($updateCart)) {
 					echo $updateCart;
@@ -22,19 +22,21 @@
 						<th>Action</th>
 					</tr>
 
-					<?php
-                    $cmrId = Session::get("customerId"); 
-					$getPd = $pd->getComapareData($cmrId); 
-					if ($getPd) {
+					<?php 
+					$checkWlist = $pd->checkWlist($cmrId); 
+					if ($checkWlist) {
 						$i = 0; 
-						while ($result = $getPd->fetch_assoc()) {
+						while ($result = $checkWlist->fetch_assoc()) {
 							$i++; ?>
             <tr>
                 <td> <?php echo $i; ?> </td>
                 <td> <?php echo $result['productName']; ?> </td>
                 <td> $<?php echo $result['price']; ?> </td>
                 <td><img src="admin/<?php echo $result['image']; ?>" alt="" style="width:150px; height:100px; object-fit: cover; " /></td>
-                <td><a href="details.php?proid=<?php echo $result['productId']; ?>">View</a></td>  
+                <td>
+                    <a href="details.php?proid=<?php echo $result['productId']; ?>">Buy Now</a>||
+                    <a href="detwlist.php?proid=<?php echo $result['productId']; ?>">Remove</a>
+                </td>  
             </tr> 
 						<?php }
 					}

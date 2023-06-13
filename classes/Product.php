@@ -359,6 +359,22 @@ class Product
             }
         }
 
+    } 
+
+    public function checkWlist($cmrId)
+    {
+        $query = "SELECT * FROM tbl_wlist WHERE cmrId='$cmrId' ORDER By id DESC";
+        $result = $this->db->select($query);
+        return $result;
+    }
+
+    public function getwlistcount($customerId)
+    {
+        $query = "SELECT * FROM tbl_wlist WHERE cmrId='$customerId'";
+        $result = $this->db->select($query);
+        $rows = $result->fetch_all(MYSQLI_ASSOC);
+        $count = count($rows);
+        return $count;
     }
 
 }

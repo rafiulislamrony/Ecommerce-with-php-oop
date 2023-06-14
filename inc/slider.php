@@ -24,7 +24,7 @@
 			} ?>
 
 			<?php
-			$getIphone = $pd->latestFromSamsung(); 
+			$getIphone = $pd->latestFromSamsung();
 			if ($getIphone) {
 				while ($result = $getIphone->fetch_assoc()) { ?>
 					<div class="listview_1_of_2 images_1_of_2">
@@ -99,10 +99,14 @@
 		<section class="slider">
 			<div class="flexslider">
 				<ul class="slides">
-					<li><img src="images/1.jpg" alt="" /></li>
-					<li><img src="images/2.jpg" alt="" /></li>
-					<li><img src="images/3.jpg" alt="" /></li>
-					<li><img src="images/4.jpg" alt="" /></li>
+					<?php 
+						$showSlider = $utility->showSlider(); 
+						if ($showSlider) { 
+							while ($result = $showSlider->fetch_assoc()) { ?> 
+								<li><img src="admin/<?php echo $result['sliderImage']; ?>" alt="" /></li> 
+							<?php }
+						}
+					?>
 				</ul>
 			</div>
 		</section>

@@ -1,26 +1,33 @@
 <?php include 'inc/header.php';?>
 <?php include 'inc/sidebar.php';?>
+
+<?php
+include_once '../classes/Utility.php';
+$utility = new Utility();
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) { 
+    $insertSliderImage = $utility->insertSliderImage($_FILES);  
+} 
+
+?>
+
 <div class="grid_10">
     <div class="box round first grid">
         <h2>Add New Slider</h2>
-    <div class="block">               
-         <form action="addslider.php" method="post" enctype="multipart/form-data">
-            <table class="form">     
+    <div class="block">       
+        <?php 
+        if(isset($insertSliderImage)){
+            echo $insertSliderImage; 
+        }
+        ?>        
+         <form action="" method="POST" enctype="multipart/form-data">
+            <table class="form">      
                 <tr>
                     <td>
-                        <label>Title</label>
+                        <label>Slider Image</label>
                     </td>
                     <td>
-                        <input type="text" name="title" placeholder="Enter Slider Title..." class="medium" />
-                    </td>
-                </tr>           
-    
-                <tr>
-                    <td>
-                        <label>Upload Image</label>
-                    </td>
-                    <td>
-                        <input type="file" name="image"/>
+                        <input type="file" name="sliderImage"/>
                     </td>
                 </tr>
                

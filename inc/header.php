@@ -53,7 +53,13 @@ header("Cache-Control: max-age=2592000");
 	<div class="wrap">
 		<div class="header_top">
 			<div class="logo">
-				<a href="index.php"><img src="images/logo.png" alt="" /></a>
+				<?php
+				$getUtility = $utility->getUtility();
+				if ($getUtility) {
+					while ($result = $getUtility->fetch_assoc()) { ?>
+						<a href="index.php"><img src="admin/<?php echo $result['logo']; ?>" alt="" /></a>
+					<?php }
+				} ?>
 			</div>
 			<div class="header_top_right">
 				<div class="search_box">
@@ -84,7 +90,7 @@ header("Cache-Control: max-age=2592000");
 				</div>
 				<?php
 				if (isset($_GET['cid'])) {
-					$customerId = Session::get("customerId"); 
+					$customerId = Session::get("customerId");
 					$delData = $ct->delCustomarCart();
 					$delComp = $pd->delCompareData($customerId);
 					Session::destroy();
@@ -107,7 +113,7 @@ header("Cache-Control: max-age=2592000");
 
 		<div class="menu">
 			<ul id="dc_mega-menu-orange" class="dc_mm-orange">
-				<li><a href="index.php">Home</a></li> 
+				<li><a href="index.php">Home</a></li>
 				<li><a href="topbrands.php">Top Brands</a></li>
 
 				<?php
@@ -120,7 +126,7 @@ header("Cache-Control: max-age=2592000");
 				<?php
 				$customerId = Session::get("customerId");
 				$chkOrder = $ct->checkOrder($customerId);
-				if ($chkOrder) { ?> 
+				if ($chkOrder) { ?>
 					<li><a href="orderdetails.php">Order</a></li>
 				<?php } ?>
 
@@ -131,43 +137,43 @@ header("Cache-Control: max-age=2592000");
 				<?php } ?>
 
 				<?php
-                    $cmrId = Session::get("customerId"); 
-					$getPd = $pd->getComapareData($cmrId); 
-					if ($getPd) {
-				?> 
-				<li>
-					<a href="compare.php">Compare 
-						<span> 
-						<?php 
-						 $cmrId = Session::get("customerId"); 
-						 $getcomcount = $pd->getcomcount($cmrId); 
+				$cmrId = Session::get("customerId");
+				$getPd = $pd->getComapareData($cmrId);
+				if ($getPd) {
+					?>
+					<li>
+						<a href="compare.php">Compare
+							<span>
+								<?php
+								$cmrId = Session::get("customerId");
+								$getcomcount = $pd->getcomcount($cmrId);
 
-						 if($getcomcount){
-							echo "(".$getcomcount.")";
-						 }
-						?>
-						</span> 
-					 </a> 
-				</li> 
+								if ($getcomcount) {
+									echo "(" . $getcomcount . ")";
+								}
+								?>
+							</span>
+						</a>
+					</li>
 				<?php } ?>
 
-				<?php 
-					$checkWlist = $pd->checkWlist($cmrId); 
-					if ($checkWlist) {
-				?> 
-				<li>
-					<a href="wishlist.php">Wishlist 
-						<span> 
-						<?php  
-						 $getwlistcount = $pd->getwlistcount($cmrId); 
+				<?php
+				$checkWlist = $pd->checkWlist($cmrId);
+				if ($checkWlist) {
+					?>
+					<li>
+						<a href="wishlist.php">Wishlist
+							<span>
+								<?php
+								$getwlistcount = $pd->getwlistcount($cmrId);
 
-						 if($getwlistcount){
-							echo "(".$getwlistcount.")";
-						 }
-						?>
-						</span> 
-					 </a> 
-				</li> 
+								if ($getwlistcount) {
+									echo "(" . $getwlistcount . ")";
+								}
+								?>
+							</span>
+						</a>
+					</li>
 				<?php } ?>
 
 

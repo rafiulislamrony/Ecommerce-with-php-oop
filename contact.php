@@ -22,6 +22,7 @@
 				<div class="contact-form">
 					<h2>Contact Us</h2>
 					<form>
+					
 						<div>
 							<span><label>NAME</label></span>
 							<span><input type="text" value=""></span>
@@ -46,13 +47,17 @@
 			</div>
 			<div class="col span_1_of_3">
 				<div class="company_address">
+				<?php
+					$getUtility = $utility->getUtility();
+					if ($getUtility) {
+						while ($result = $getUtility->fetch_assoc()) { ?> 
+				
 					<h2>Company Information :</h2>
-					<p>500 Lorem Ipsum Dolor Sit,</p>
-					<p>22-56-2-9 Sit Amet, Lorem,</p>
-					<p>USA</p>
-					<p>Phone:(00) 222 666 444</p>
-					<p>Fax: (000) 000 00 00 0</p>
-					<p>Email: <span>info@mycompany.com</span></p>
+					<p><?php echo $result['address']; ?></p> 
+					<p>Phone: <?php echo $result['phone']; ?></p> 
+					<p>Email: <span><?php echo $result['email']; ?></span></p>
+					<?php }
+					} ?>
 					<p>Follow on: <span>Facebook</span>, <span>Twitter</span></p>
 				</div>
 			</div>

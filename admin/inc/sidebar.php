@@ -2,9 +2,9 @@
     <div class="box sidemenu">
         <div class="block" id="section-menu">
             <ul class="section menu">
-               <li><a class="menuitem">Site Utility</a>
+               <li><a class="menuitem">Site Option</a>
                     <ul class="submenu">
-                        <li><a href="utility.php">Title & Slogan</a></li>
+                        <li><a href="utility.php">Site Utility</a></li>
                         <li><a href="social.php">Social Media</a></li> 
                         
                     </ul>

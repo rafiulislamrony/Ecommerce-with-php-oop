@@ -17,13 +17,17 @@ if (!isset($_GET['sliderid']) || $_GET['sliderid'] == null) {
 <div class="grid_10">
     <div class="box round first grid">
         <h2>Update Slider Image</h2>
-        <?php  
+        <?php
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
             $updateSliderImage = $utility->updateSliderImage($sliderid, $_FILES);
         }
 
         ?>
-
+        <?php
+        if (isset($updateSliderImage)) {
+            echo $updateSliderImage;
+        }
+        ?>
         <div class="block">
             <?php
             $getSliderById = $utility->getSliderById($sliderid);
@@ -37,7 +41,8 @@ if (!isset($_GET['sliderid']) || $_GET['sliderid'] == null) {
                                     <label>Slider Image</label>
                                 </td>
                                 <td>
-                                    <img src="<?php echo $result['sliderImage'] ?>" alt="" height="100px" width="150px"> <br><br>
+                                    <img src="<?php echo $result['sliderImage'] ?>" alt="" height="100px" width="150px">
+                                    <br><br>
                                     <input type="file" name="sliderImage" />
                                 </td>
                             </tr>

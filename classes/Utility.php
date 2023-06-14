@@ -138,7 +138,6 @@ class Utility
         $result = $this->db->select($query);
         return $result;
     }
- 
     public function updateUtility($data, $file) 
     {
         $copyright = $this->fm->validation($data['copyright']);
@@ -206,11 +205,42 @@ class Utility
         return $result;
     }
 
+    public function insertContact($data){
 
-
-
-
-
+        $name = $this->fm->validation($data['name']); 
+        $email = $this->fm->validation($data['email']);
+        $phone = $this->fm->validation($data['phone']);
+        $body = $data['body'];
+    
+        $name = $this->db->link->real_escape_string($name);
+        $email = $this->db->link->real_escape_string($email);
+        $phone = $this->db->link->real_escape_string($phone);
+        $body = $this->db->link->real_escape_string($body); 
+ 
+        if(empty($name)){
+            $message = "<span style='color:red;'>Name Must Not be Empty.</span>";
+            return $message;
+        }elseif(!filter_var($email, FILTER_VALIDATE_EMAIL)){ 
+            $message = "<span style='color:red;'>Invalide Email Address.</span>";
+            return $message;
+        }elseif(empty($phone)){ 
+            $message = "<span style='color:red;'>Phone Number Must Not be Empty.</span>";
+            return $message;
+        }elseif(empty($body)){ 
+            $message = "<span style='color:red;'>Message Must Not be Empty.</span>";
+            return $message;
+        }else{
+            $query = "INSERT INTO tbl_contact (name, email, phone, body) VALUES ('$name', '$email','$phone','$body')";
+            $result = $this->db->insert($query); 
+            if ($result) { 
+                $message = "<span style='color:green;'>Message Send successfully.</span>";
+                return $message;
+            } else { 
+                $message = "<span style='color:red;'>Message Not Send.</span>"; 
+                return $message;
+            }
+        }
+    } 
     
 }
 ?>

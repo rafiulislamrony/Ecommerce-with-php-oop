@@ -1,4 +1,13 @@
 <?php include 'inc/header.php' ?>
+
+<?php
+include_once 'classes/Utility.php';
+$utility = new Utility();
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
+	$insertContact = $utility->insertContact($_POST);
+}
+?>
 <div class="main">
 	<div class="content">
 		<div class="support">
@@ -20,43 +29,55 @@
 		<div class="section group">
 			<div class="col span_2_of_3">
 				<div class="contact-form">
+					<?php
+					if (isset($insertContact)) {
+						echo $insertContact;
+					}
+					?>
 					<h2>Contact Us</h2>
-					<form>
-					
+
+					<form method="POST">
 						<div>
 							<span><label>NAME</label></span>
-							<span><input type="text" value=""></span>
+							<span><input name="name" type="text" value=""></span>
 						</div>
 						<div>
 							<span><label>E-MAIL</label></span>
-							<span><input type="text" value=""></span>
+							<span><input name="email" type="text" value=""></span>
 						</div>
 						<div>
 							<span><label>MOBILE.NO</label></span>
-							<span><input type="text" value=""></span>
+							<span><input name="phone" type="text" value=""></span>
 						</div>
 						<div>
 							<span><label>SUBJECT</label></span>
-							<span><textarea> </textarea></span>
+							<span><textarea name="body"> </textarea></span>
 						</div>
 						<div>
-							<span><input type="submit" value="SUBMIT"></span>
+							<span><input type="submit" name="submit" value="SUBMIT"></span>
 						</div>
 					</form>
+
 				</div>
 			</div>
 			<div class="col span_1_of_3">
 				<div class="company_address">
-				<?php
+					<?php
 					$getUtility = $utility->getUtility();
 					if ($getUtility) {
-						while ($result = $getUtility->fetch_assoc()) { ?> 
-				
-					<h2>Company Information :</h2>
-					<p><?php echo $result['address']; ?></p> 
-					<p>Phone: <?php echo $result['phone']; ?></p> 
-					<p>Email: <span><?php echo $result['email']; ?></span></p>
-					<?php }
+						while ($result = $getUtility->fetch_assoc()) { ?>
+
+							<h2>Company Information :</h2>
+							<p>
+								<?php echo $result['address']; ?>
+							</p>
+							<p>Phone:
+								<?php echo $result['phone']; ?>
+							</p>
+							<p>Email: <span>
+									<?php echo $result['email']; ?>
+								</span></p>
+						<?php }
 					} ?>
 					<p>Follow on: <span>Facebook</span>, <span>Twitter</span></p>
 				</div>

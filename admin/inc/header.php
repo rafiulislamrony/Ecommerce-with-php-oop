@@ -2,12 +2,10 @@
 include '../lib/Session.php';
 Session::checkSession();
 ?>
-
 <?php include '../lib/Database.php'; ?>
 <?php
 $db = new Database(); 
-?>
-
+?> 
 <?php
 header("Cache-Control: no-cache, must-revalidate");
 header("Pragma: no-cache");
@@ -89,8 +87,25 @@ header("Cache-Control: max-age=2592000");
                 <li class="ic-dashboard"><a href="dashbord.php"><span>Dashboard</span></a> </li>
                 <li class="ic-form-style"><a href=""><span>User Profile</span></a></li>
                 <li class="ic-typography"><a href="changepassword.php"><span>Change Password</span></a></li>
+ 
                 <li class="ic-grid-tables">
-                    <a href="inbox.php"><span> Inbox
+                    <a href="inbox.php"><span> Order
+                            <?php
+                            $query = "SELECT * FROM tbl_order WHERE status='0' ORDER BY id DESC";
+                            $msg = $db->select($query);
+                            if ($msg) {
+                                $count = mysqli_num_rows($msg);
+                                echo "(" . $count . ")";
+                            } else {
+                                echo "0";
+                            }
+                            ?>
+                        </span>
+                    </a>
+                </li>
+
+                <li class="ic-grid-tables">
+                    <a href="message.php"><span> Message
                             <?php
                             $query = "SELECT * FROM tbl_contact WHERE status='0' ORDER BY id DESC";
                             $msg = $db->select($query);

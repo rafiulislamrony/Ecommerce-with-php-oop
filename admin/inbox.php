@@ -23,7 +23,6 @@ if (isset($_GET['delproid'])) {
 	$time = $_GET['time'];
 	$price = $_GET['price'];
 	$delOrder= $ct->delproductShifted($id, $time, $price);
-
 }
 
 ?>
